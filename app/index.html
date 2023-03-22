@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>ai board</title>
+</head>
+<body>
+<div id="main">
+  <ul id="template-explorer" class="active">
+    <li class="main">
+      <h1>Hi, I'm your AI powered, collaborative board!</h1>
+      <p>This is how I can help you...</p>
+    </li>
+    <li class="template" id="1">
+      <h3>Mental well-being</h3>
+      <span>I can be your Mental Health Coach</span>
+    </li>
+    <li class="template">
+      <h3>Health and Nutrition</h3>
+      <span>Generate healthy and tasty recipes based on a given set of ingredients and information about their nutritional value.</span>
+    </li>
+    <li class="template">
+      <h3>Category2</h3>
+      <span>Description2</span>
+    </li>
+    <li class="template">
+      <h3>Category2</h3>
+      <span>Description2</span>
+    </li>
+    <li class="template">
+      <h3>Category2</h3>
+      <span>Description2</span>
+    </li>
+
+  </ul>
+  <div id="topbar">
+    <div id="logo">sqeed board</div>
+    <div id="add-text-node" class="button">PLUS</div>
+    <div id="open-templates" class="button" >OPEN</div>
+    <div class="spacing"></div>
+    <input type="text" id="api-key" placeholder="Enter your OpenAI API key..."/>
+  </div>
+  <div id="container"></div>
+</div>
+
+
+<ul class="menu" id="menu-image">
+  <li id="download">Download</li>
+  <li id="create-variation">Create Variation</li>
+  <li id="delete-button-image">Delete</li>
+</ul>
+
+<ul class="menu" id="menu-text">
+  <li id="create-image">Create Image</li>
+  <li class="completion" data-instruction="Rephrase the following prompt: ">Rephrase</li>
+  <li class="completion" data-instruction="Extend the following prompt: ">Extend</li>
+  <li class="completion" data-instruction="Summarize the following prompt: ">Summarize</li>
+  <li>
+    Translate...
+    <ul class="sub-menu">
+      <li class="completion" data-instruction="Translate to German: ">Translate to German</li>
+      <li class="completion" data-instruction="Translate to French: ">Translate to French</li>
+    </ul>
+  </li>
+  <li id="delete-button-text">Delete</li>
+</ul>
+
+
+
+</body>
+
+</html>
