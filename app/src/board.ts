@@ -42,8 +42,6 @@ export function makeNodeResizable(node: any, layer: any) {
 
 function makeNodeEditable(textNode: any) {
     const transformer = new Konva.Transformer({
-        anchorStroke: '#06041f',
-        borderStroke: '#06041f',
         node: textNode,
         enabledAnchors: ['middle-left', 'middle-right'],
         rotateAnchorOffset: 20,

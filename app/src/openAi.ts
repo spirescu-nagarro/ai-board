@@ -88,6 +88,7 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
                 $(menuNode).append($('<li>')
                     .addClass('dynamic completion')
                     .attr('data-instruction', dynamicOption.prompt)
+                    .attr('title', dynamicOption.prompt)
                     .html(dynamicOption.label))
             }
         })
