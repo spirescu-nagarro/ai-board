@@ -128,7 +128,7 @@ function contextMenu(stage: any) {
     $('.template').on('click', function () {
         const template = $(this).attr('data-id')
         $('#template-explorer').removeClass('active')
-        if (template === '2') {
+        if (template == '1') {
             createTextNode('What are your current stress levels and how do you manage stress?')
             createTextNode('How is your sleep quality and quantity?')
             createTextNode('Are you currently struggling with any mental health issues such as anxiety, depression, or trauma?')
