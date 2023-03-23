@@ -15,11 +15,11 @@ export function setSelectedNode(node: any) {
     selectedNode = node
 }
 
-export function createTextNode(text: string) {
+export function createTextNode(text: string, x = window.innerWidth/2 - 25, y = positionForNextNode.y + 50) {
     const textNode = new Konva.Text({
         text,
-        x: window.innerWidth/2 - 25,
-        y: positionForNextNode.y + 50,
+        x,
+        y,
         width: 400,
         fontSize: 16,
         fontFamily: "'Equip', sans-serif",
@@ -29,6 +29,7 @@ export function createTextNode(text: string) {
     layer.add(textNode)
     makeNodeEditable(textNode)
     positionForNextNode.y = textNode.y() + textNode.height()
+    return textNode
 }
 
 export function makeNodeResizable(node: any, layer: any) {

@@ -5,7 +5,7 @@ import {createTextNode, getSelectedNode, layer, setSelectedNode, stage} from "./
 
 
 function getDynamicMenuOptions(menuNode: JQuery, currentShape: any) {
-    menuNode.find('.dynamic, loading').remove()
+    menuNode.find('.dynamic, .loading').remove()
     menuNode.append($('<li>').addClass('loading').html('Loading dynamic options...'))
     const context = currentShape.text()
     createChatCompletion(context, menuNode);
@@ -30,10 +30,12 @@ export function initMenu() {
         downloadBase64File(getSelectedNode().image().title + '.png', getSelectedNode().image().src)
     })
 
-    $('.completion').on('click', function () {
+    $('*').on('click','.completion', function (e) {
+        e.stopPropagation()
         const instruction = $(this).attr('data-instruction')
         const prompt = getSelectedNode().text()
         generateCompletion(instruction + prompt)
+        $('.menu').hide()
     })
 
     $('body').on('click', () => {

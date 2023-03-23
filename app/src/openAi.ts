@@ -4,6 +4,7 @@ import Konva from "konva";
 import {createTextNode, layer, makeNodeResizable} from "./board";
 
 export function generateImage(prompt: string) {
+    const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, 0,0)
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
@@ -21,11 +22,15 @@ export function generateImage(prompt: string) {
         .then(data => {
             const image = data.data[0].b64_json
             makeImageBase64(image, prompt)
+            // @ts-ignore
+            loadingImageNode.transformer.remove()
+            loadingImageNode.remove()
         })
         .catch(error => console.error(error))
 }
 
 export function generateCompletion(prompt: string) {
+    const loadingTextNode = createTextNode(`Loading the prompt: ${prompt}...`)
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -47,7 +52,7 @@ export function generateCompletion(prompt: string) {
         .then(response => response.json())
         .then(data => {
             let message = data.choices[0].text.trim()
-            createTextNode(message)
+            loadingTextNode.text(message)
         })
         .catch(error => console.error(error));
 }
