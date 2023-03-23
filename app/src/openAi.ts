@@ -1,9 +1,10 @@
-import {apiKey} from "./topbar";
+import {apiKey, startLoading, stopLoading} from "./topbar";
 import * as $ from "jquery";
 import Konva from "konva";
 import {createTextNode, layer, makeNodeResizable} from "./board";
 
 export function generateImage(prompt: string) {
+    startLoading()
     const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, 0,0)
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
@@ -25,11 +26,13 @@ export function generateImage(prompt: string) {
             // @ts-ignore
             loadingImageNode.transformer.remove()
             loadingImageNode.remove()
+            stopLoading()
         })
         .catch(error => console.error(error))
 }
 
 export function generateCompletion(prompt: string) {
+    startLoading()
     const loadingTextNode = createTextNode(`Loading the prompt: ${prompt}...`)
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
@@ -53,6 +56,7 @@ export function generateCompletion(prompt: string) {
         .then(data => {
             let message = data.choices[0].text.trim()
             loadingTextNode.text(message)
+            stopLoading()
         })
         .catch(error => console.error(error));
 }

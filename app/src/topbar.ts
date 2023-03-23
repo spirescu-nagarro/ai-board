@@ -3,6 +3,14 @@ import {createTextNode} from "./board";
 
 export let apiKey = ''
 
+export function startLoading() {
+    $('#topbar .loader').addClass('loading')
+}
+
+export function stopLoading() {
+    $('#topbar .loader').removeClass('loading')
+}
+
 $('#open-templates').on('click', () => {
     $('#template-explorer').toggleClass('active')
 })

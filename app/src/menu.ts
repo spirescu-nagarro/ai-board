@@ -6,7 +6,10 @@ import {createTextNode, getSelectedNode, layer, setSelectedNode, stage} from "./
 
 function getDynamicMenuOptions(menuNode: JQuery, currentShape: any) {
     menuNode.find('.dynamic, .loading').remove()
-    menuNode.append($('<li>').addClass('loading').html('Loading dynamic options...'))
+    menuNode.append($('<li>').addClass('loading')
+        .html('Generating...')
+        .append($('<div>').addClass('loader'))
+    )
     const context = currentShape.text()
     createChatCompletion(context, menuNode);
 }
