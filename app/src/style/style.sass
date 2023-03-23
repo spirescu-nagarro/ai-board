@@ -9,6 +9,7 @@ body
     font-family: EquipExtended, sans-serif
   #main
     #topbar
+      transition: all ease .3s
       position: absolute
       width: 100%
       height: 60px
@@ -18,6 +19,15 @@ body
       display: flex
       align-items: center
       z-index: 10
+      flex-wrap: wrap
+      align-content: center
+      row-gap: 10px
+      &.empty-key
+        height: 100%
+        #api-key
+          flex: 1 0 100%
+          font-size: 2rem
+          margin: 20px 0
       .button
         margin-left: 10px
         background: rgba(255, 255, 255, 0.2)
@@ -37,6 +47,7 @@ body
         display: flex
         margin-right: 20px
       #api-key
+        transition: all ease .3s
         width: 200px
         text-overflow: ellipsis
         color: rgba(255, 255, 255, 0.6)

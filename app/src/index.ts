@@ -337,12 +337,19 @@ function editable(textNode: any) {
 
 }
 
-if (localStorage.getItem('apiKey') !== null) {
+if (localStorage.getItem('apiKey') !== null && localStorage.getItem('apiKey') !== '') {
     apiKey = localStorage.getItem('apiKey')
     $('#api-key').val(apiKey)
+    $('#topbar').removeClass('empty-key')
 }
+else
+    $('#topbar').addClass('empty-key')
 
-$('#api-key').on('change', function () {
+$('#api-key').on('input', function () {
     apiKey = $(this).val() as string
     localStorage.setItem('apiKey', apiKey)
+    if (apiKey.length > 0)
+        $('#topbar').removeClass('empty-key')
+    else
+        $('#topbar').addClass('empty-key')
 })
