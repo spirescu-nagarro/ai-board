@@ -4,10 +4,18 @@
 <head>
   <meta charset="utf-8"/>
   <title>ai board</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
 <div id="main">
+  <div id="topbar">
+    <div id="logo"><img src="./assets/logo.svg" alt="AI Board"/></div>
+    <div id="add-text-node" class="button"><span class="material-icons">add</span></div>
+    <div id="open-templates" class="button" ><span class="material-icons">folder_open</span></div>
+    <div class="spacing"></div>
+    <input type="text" id="api-key" placeholder="Enter your OpenAI API key..."/>
+  </div>
   <ul id="template-explorer" class="active">
     <li class="main">
       <h1>Hi, I'm your AI powered, collaborative board!</h1>
@@ -35,13 +43,7 @@
     </li>
 
   </ul>
-  <div id="topbar">
-    <div id="logo">ai board</div>
-    <div id="add-text-node" class="button">PLUS</div>
-    <div id="open-templates" class="button" >OPEN</div>
-    <div class="spacing"></div>
-    <input type="text" id="api-key" placeholder="Enter your OpenAI API key..."/>
-  </div>
+
   <div id="container"></div>
 </div>
 
