@@ -92,6 +92,56 @@ function resizable(object: any, layer: any) {
     layer.add(transformer)
 }
 
+function getDynamicMenuOptions(menuNode: HTMLElement, currentShape: any) {
+    $(menuNode).find('.dynamic, loading').remove()
+    $(menuNode).append($('<li>').addClass('loading').html('Loading dynamic options...'))
+
+    const context = currentShape.text()
+
+        fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            "frequency_penalty": 0,
+            "max_tokens": 500,
+            "model": "gpt-3.5-turbo",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": `This is a block of text: ${context}`
+                },
+                {
+                    "role": "user",
+                    "content": "Based on this block of text, propose 5 possible actions that can be performed on this text. It should have a label called \"label\", which is a very short description of the action not longer than 30 characters. It should have a more verbose prompt called \"prompt\" that describes the action. It should have a output format called \"output_format\" which can be either \"text\" or \"image\". Put the results in a JSON array, where each element is a JSON object with the label, prompt, and output_format fields."
+                }
+            ],
+            "temperature": 0.7,
+            "top_p": 1,
+            "n": 1,
+            "stream": false,
+            "presence_penalty": 0
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            const dynamicOptions = JSON.parse(data.choices[0].message.content.replace('```json', '').replace('```', ''))
+            $(menuNode).find('.loading').remove()
+            for (let dynamicOption of dynamicOptions) {
+                $(menuNode).append($('<li>')
+                    .addClass('dynamic completion')
+                    .attr('data-instruction', dynamicOption.prompt)
+                    .html(dynamicOption.label))
+            }
+
+
+        })
+        .catch(error => console.error(error))
+
+}
+
 function contextMenu(stage: any) {
     let menuNode = document.getElementById('menu-text')
     let currentShape: any = null
@@ -204,12 +254,13 @@ function contextMenu(stage: any) {
         e.evt.preventDefault()
         const target = e.target
         if (target === stage) return
-        if (target.constructor.name === 'Text')
+        currentShape = e.target
+        if (target.constructor.name === 'Text') {
             menuNode = document.getElementById('menu-text')
+            getDynamicMenuOptions(menuNode, currentShape)
+        }
         if (target.constructor.name === 'Image')
             menuNode = document.getElementById('menu-image')
-
-        currentShape = e.target
         menuNode.style.display = 'initial'
         const containerRect = stage.container().getBoundingClientRect()
         menuNode.style.top = containerRect.top + stage.getPointerPosition().y + 4 + 'px'
