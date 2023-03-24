@@ -30,7 +30,14 @@ export function makeNodeConnectable(node: any) {
     })
 }
 
-export function createTextNode(text: string, x = window.innerWidth/2 - 25, y = positionForNextNode.y + 50) {
+export function createTextNode(text: string, x = 20, y = positionForNextNode.y + 50) {
+    const initialNode = getSelectedNode()
+
+    if (initialNode) {
+        x = initialNode.getX()
+        y = initialNode.getY() + initialNode.transformer.height() + 20
+    }
+
     const textNode = new Konva.Text({
         text,
         x,
@@ -58,7 +65,7 @@ export function makeNodeResizable(node: any, layer: any) {
 }
 
 
-function connectNodes(node1: any, node2:any) {
+export function connectNodes(node1: any, node2:any) {
     const arrow = new Konva.Arrow({
         points: [node1.getX(), node1.getY(), node2.getX(), node2.getY()],
         pointerLength: 10,

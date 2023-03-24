@@ -1,10 +1,11 @@
 import {apiKey, startLoading, stopLoading} from "./topbar";
 import * as $ from "jquery";
 import Konva from "konva";
-import {createTextNode, layer, makeNodeConnectable, makeNodeResizable} from "./board";
+import {connectNodes, createTextNode, getSelectedNode, layer, makeNodeConnectable, makeNodeResizable} from "./board";
 import {notify} from "./notifications";
 
 export function generateImage(prompt: string) {
+    const initialNode = getSelectedNode()
     startLoading()
     const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, 0,0)
     fetch('https://api.openai.com/v1/images/generations', {
@@ -24,7 +25,7 @@ export function generateImage(prompt: string) {
         .then(data => {
             checkForErrors(data)
             const image = data.data[0].b64_json
-            createImageNode(image, prompt)
+            createImageNode(image, prompt, initialNode)
             stopLoading()
         })
         .catch(error => {
@@ -40,8 +41,9 @@ export function generateImage(prompt: string) {
 }
 
 export function generateCompletion(prompt: string) {
+    const initialNode = getSelectedNode()
     startLoading()
-    const loadingTextNode = createTextNode(`Loading the prompt: ${prompt}...`)
+    const newNode = createTextNode(`Loading the prompt: ${prompt}...`)
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -64,14 +66,16 @@ export function generateCompletion(prompt: string) {
         .then(data => {
             checkForErrors(data)
             let message = data.choices[0].text.trim()
-            loadingTextNode.text(message)
+            newNode.text(message)
+            newNode.fire('transform')
+            connectNodes(initialNode, newNode)
             stopLoading()
         })
         .catch(error => {
             handleError(error)
             // @ts-ignore
-            loadingTextNode.transformer.remove()
-            loadingTextNode.remove()
+            newNode.transformer.remove()
+            newNode.remove()
         })
 }
 
@@ -126,22 +130,23 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
         })
 }
 
-function createImageNode(base64String: string, prompt: string) {
+function createImageNode(base64String: string, prompt: string, initialNode: any) {
     const img = new Image()
     img.src = `data:image/png;base64,${base64String}`
     img.title = prompt
     img.onload = () => {
         const imageNode = new Konva.Image({
             image: img,
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 100,
+            x: initialNode.x() + initialNode.width()/2 - 100,
+            y: initialNode.y() + initialNode.height() + 20,
+            width: 200,
+            height: 200,
             draggable: true,
         })
         layer.add(imageNode)
         makeNodeResizable(imageNode, layer)
         makeNodeConnectable(imageNode)
+        connectNodes(initialNode, imageNode)
         layer.draw()
     }
 }
