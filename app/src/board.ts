@@ -6,9 +6,10 @@ export let stage: Konva.Stage
 export let layer: Konva.Layer
 
 let positionForNextNode = {x: 0, y: 50}
-let selectedNode: any = null
+export let selectedNodes: any[] = []
 let firstNodeForConnectionSelected = false
 
+let selectedNode: any = null
 
 export function getSelectedNode() {
     return selectedNode
@@ -35,9 +36,9 @@ export function makeNodeConnectable(node: any) {
 }
 
 export function makeNodeSelectable(textNode: any) {
-    textNode.on('click', (e: any) => {
-        setSelectedNode(e.target)
-    })
+    // textNode.on('click', (e: any) => {
+    //     setSelectedNode(e.target)
+    // })
 }
 
 export function createTextNode(text: string, x = 20, y = positionForNextNode.y + 50) {
@@ -325,6 +326,28 @@ export function initBoard() {
             y: pointer.y - mousePointTo.y * newScale,
         }
         stage.position(newPos)
+    })
+
+    layer.on('click', (event) => {
+        const node = event.target as any
+        const isShiftKeyPressed = event.evt.shiftKey
+        if (!event.target) return
+        if (isShiftKeyPressed) {
+            if (selectedNodes.includes(node)) {
+                selectedNodes.splice(selectedNodes.indexOf(node), 1)
+                node.background.fill('white')
+            } else {
+                selectedNodes.push(node)
+                node.background.fill('yellow')
+            }
+        } else {
+            selectedNodes.forEach((selectedRect: any) => {
+                selectedRect.background.fill('white')
+            })
+            selectedNodes = []
+            selectedNodes.push(node)
+            node.background.fill('yellow')
+        }
     })
 
 }
