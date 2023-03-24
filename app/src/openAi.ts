@@ -1,7 +1,7 @@
 import {apiKey, startLoading, stopLoading} from "./topbar";
 import * as $ from "jquery";
 import Konva from "konva";
-import {createTextNode, layer, makeNodeResizable} from "./board";
+import {createTextNode, layer, makeNodeConnectable, makeNodeResizable} from "./board";
 import {notify} from "./notifications";
 
 export function generateImage(prompt: string) {
@@ -24,7 +24,7 @@ export function generateImage(prompt: string) {
         .then(data => {
             checkForErrors(data)
             const image = data.data[0].b64_json
-            makeImageBase64(image, prompt)
+            createImageNode(image, prompt)
             stopLoading()
         })
         .catch(error => {
@@ -33,6 +33,8 @@ export function generateImage(prompt: string) {
         .finally(() => {
             // @ts-ignore
             loadingImageNode.transformer.remove()
+            // @ts-ignore
+            loadingImageNode.background.remove()
             loadingImageNode.remove()
         })
 }
@@ -124,12 +126,12 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
         })
 }
 
-function makeImageBase64(base64String: string, prompt: string) {
+function createImageNode(base64String: string, prompt: string) {
     const img = new Image()
     img.src = `data:image/png;base64,${base64String}`
     img.title = prompt
     img.onload = () => {
-        const konvaImage = new Konva.Image({
+        const imageNode = new Konva.Image({
             image: img,
             x: 0,
             y: 0,
@@ -137,8 +139,9 @@ function makeImageBase64(base64String: string, prompt: string) {
             height: 100,
             draggable: true,
         })
-        layer.add(konvaImage)
-        makeNodeResizable(konvaImage, layer)
+        layer.add(imageNode)
+        makeNodeResizable(imageNode, layer)
+        makeNodeConnectable(imageNode)
         layer.draw()
     }
 }

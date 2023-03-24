@@ -3,6 +3,23 @@ import {createTextNode} from "./board";
 
 export let apiKey = ''
 
+export function isConnectionMode() {
+    return $('#connect-nodes').hasClass('active')
+}
+
+export function setConnectionMode(mode: boolean) {
+    if (mode) {
+        $('#connect-nodes').addClass('active')
+    } else {
+        $('#connect-nodes').removeClass('active')
+    }
+}
+export function toggleConnectionMode() {
+    $('#connect-nodes').toggleClass('active')
+}
+
+
+
 export function startLoading() {
     $('#topbar .loader').addClass('loading')
 }
@@ -14,6 +31,14 @@ export function stopLoading() {
 $('#open-templates').on('click', () => {
     $('#template-explorer').toggleClass('active')
 })
+
+$('#connect-nodes').on('click', () => {
+    console.log('test')
+    toggleConnectionMode()
+})
+
+
+
 
 $('.template').on('click', function () {
     const template = $(this).attr('data-id')

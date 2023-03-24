@@ -26,6 +26,8 @@ export function initMenu() {
     $('#delete-button-image, #delete-button-text').on('click', () => {
         if (getSelectedNode().transformer)
             getSelectedNode().transformer.remove()
+        if (getSelectedNode().background)
+            getSelectedNode().background.remove()
         getSelectedNode().remove()
     })
 

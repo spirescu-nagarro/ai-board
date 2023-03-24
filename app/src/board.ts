@@ -1,11 +1,13 @@
 import Konva from "konva";
 import * as $ from "jquery";
+import {isConnectionMode, setConnectionMode} from "./topbar";
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
 
 let positionForNextNode = {x: 0, y: 50}
 let selectedNode: any = null
+let firstNodeForConnectionSelected = false
 
 
 export function getSelectedNode() {
@@ -13,6 +15,19 @@ export function getSelectedNode() {
 }
 export function setSelectedNode(node: any) {
     selectedNode = node
+}
+
+export function makeNodeConnectable(node: any) {
+    node.on('click', (e: any) => {
+        if (isConnectionMode()) {
+            if (firstNodeForConnectionSelected === false) {
+                firstNodeForConnectionSelected = node
+            } else {
+                connectNodes(firstNodeForConnectionSelected, node)
+                firstNodeForConnectionSelected = false
+            }
+        }
+    })
 }
 
 export function createTextNode(text: string, x = window.innerWidth/2 - 25, y = positionForNextNode.y + 50) {
@@ -28,6 +43,7 @@ export function createTextNode(text: string, x = window.innerWidth/2 - 25, y = p
     })
     layer.add(textNode)
     makeNodeEditable(textNode)
+    makeNodeConnectable(textNode)
     positionForNextNode.y = textNode.y() + textNode.height()
     return textNode
 }
@@ -41,11 +57,80 @@ export function makeNodeResizable(node: any, layer: any) {
     layer.add(transformer)
 }
 
+
+function connectNodes(node1: any, node2:any) {
+    const arrow = new Konva.Arrow({
+        points: [node1.getX(), node1.getY(), node2.getX(), node2.getY()],
+        pointerLength: 10,
+        pointerWidth: 10,
+        fill: 'rgb(70,159, 248)',
+        stroke: 'rgb(70,159, 248)',
+        strokeWidth: 1
+    })
+
+    layer.add(arrow)
+
+    function adjustPoint(){
+        if (node1.getY() < node2.getY()) {
+            console.log(node1)
+            const p=[
+                node1.getX() + node1.transformer.width()/2,
+                node1.getY() + node1.transformer.height(),
+                node2.getX() + node2.transformer.width()/2,
+                node2.getY(),
+            ]
+            // @ts-ignore
+            arrow.setPoints(p)
+            layer.draw()
+            return
+        }
+        if (node1.getY() > node2.getY()) {
+            const p=[
+                node1.getX() + node1.transformer.width()/2,
+                node1.getY(),
+                node2.getX() + node2.transformer.width()/2,
+                node2.getY() + node2.transformer.height(),
+            ]
+            // @ts-ignore
+            arrow.setPoints(p)
+            layer.draw()
+            return
+        }
+    }
+    adjustPoint()
+    node1.on('dragmove', adjustPoint)
+    node2.on('dragmove', adjustPoint)
+    node1.on('transform', adjustPoint)
+    node2.on('transform', adjustPoint)
+}
+
 function makeNodeEditable(textNode: any) {
+
+    // background
+    const textNodeWidth = textNode.width()
+    const textNodeHeight = textNode.height()
+    const background = new Konva.Rect({
+        x: textNode.x(),
+        y: textNode.y(),
+        width: textNodeWidth,
+        height: textNodeHeight,
+        fill: 'white',
+        stroke: 'black',
+        strokeWidth: 1,
+        draggable: true,
+        name: 'background',
+    })
+    layer.add(background)
+    background.moveToBottom()
+    textNode.background = background
+
+
+    // transformer
     const transformer = new Konva.Transformer({
         node: textNode,
         enabledAnchors: ['middle-left', 'middle-right'],
         rotateAnchorOffset: 20,
+        rotateEnabled: false,
         boundBoxFunc: function (oldBox, newBox) {
             newBox.width = Math.max(30, newBox.width)
             return newBox
@@ -54,9 +139,20 @@ function makeNodeEditable(textNode: any) {
     textNode.transformer = transformer
     layer.add(transformer)
 
+
+    textNode.on('dragmove', function () {
+        background.position(textNode.position())
+        layer.batchDraw()
+    })
+
     textNode.on('transform', function () {
         textNode.setAttrs({
             width: textNode.width() * textNode.scaleX(),
+            scaleX: 1,
+        })
+        background.setAttrs({
+            width: textNode.width() * textNode.scaleX(),
+            height: textNode.height() * textNode.scaleY(),
             scaleX: 1,
         })
     })
