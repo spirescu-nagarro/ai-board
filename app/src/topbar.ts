@@ -53,9 +53,13 @@ $('.template').on('click', function () {
         createTextNode('How do you currently cope with difficult emotions or situations?')
         createTextNode('Are there any specific goals you have in mind for improving your mental wellbeing?')
     }
+
+    if (template == '2') {
+        createTextNode('This template needs to be implemented')
+    }
+
     if (template == '3') {
         loadMenu('refactoring')
-
         createTextNode('function deleteNullValues(arr) {\n' +
             '  let outputArr = arr.filter((el) => el !== null);\n' +
             '  return outputArr;\n' +
