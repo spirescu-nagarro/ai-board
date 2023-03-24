@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,38 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI-Board: Revolutionizing Mental Wellbeing & Collaboration</title>
   <style>
+      :root {
+          --color-black: #06041f;
+          --color-green: #47d7ac;
+          --color-blue: #13294b;
+          --color-gray: #c4c9d2;
+          --color-gray-light: #eff1f4;
+          --color-purple: #2e008b;
+          --color-yellow: #fbd872;
+          --color-red: #f8485e;
+      }
+
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
       body {
-          font-family: Arial, sans-serif;
+          font-family: Equip, sans-serif;
           line-height: 1.6;
           margin: 0;
           padding: 0;
-          background-color: #f4f4f4;
+
       }
+
+      .blue {
+          background-color: var(--color-blue);
+          color: white;
+          border-bottom: 0 none !important;
+      }
+
       header {
-          background-color: #354458;
           color: white;
           text-align: center;
-          padding: 1em;
+          position: relative;
+          margin-bottom: -8px;
+      }
+
+      header .wrapper {
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(19, 41,75, 0.3);
+      }
+
+      #intro {
+          width: 100%;
+          border-radius: 80px;
+          border: 10px solid rgba(71, 215, 172, 0.5);
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          font-family: EquipExtended, sans-serif;
+          color: var(--color-green);
+          font-weight: 600;
+          margin-bottom: 20px;
+          font-size: 38px;
       }
 
       header h1 {
-          margin: 0;
+          font-size: 86px;
+          color: white;
+          margin-bottom: -10px;
       }
 
       header p {
-          margin-top: 0.5em;
+          font-size: 32px;
+          color: var(--color-green);
+          line-height: 1.25;
+          font-family: 'EquipExtended';
       }
 
-      .container {
-          margin: 0 auto;
+      .max-container {
           max-width: 960px;
-          padding: 2em;
-          background-color: white;
+          margin: 0 auto;
+          padding: 4em 0;
       }
 
       .box {
-          padding: 2em;
-          margin-bottom: 2em;
           border-bottom: 1px solid #e5e5e5;
       }
 
@@ -46,51 +99,131 @@
       }
 
       .cta {
-          text-align: center;
-          margin-top: 2em;
+          background: var(--color-green);
+          color: var(--color-black);
+          font-weight: 600;
+          font-size: 16px;
+          text-decoration: none;
+          padding: 15px 80px;
+          border-radius: 50px;
+          margin-top: 35px;
+          font-family: 'EquipExtended', sans-serif;
       }
 
-      .cta button {
-          background-color: #354458;
-          color: white;
-          border: none;
-          padding: 1em 2em;
-          font-size: 1em;
-          cursor: pointer;
+
+      @font-face {
+          font-family: Equip;
+          src: url('font/equipreg-webfont.woff2') format('woff2'), url('font/equipreg-webfont.woff') format('woff');
+          font-display: swap;
+          unicode-range: U+000-5FF;
       }
 
-      .cta button:hover {
-          background-color: #2c3a4a;
+      @font-face {
+          font-family: Equip;
+          src: url('font/equipthi-webfont_thin.woff2') format('woff2'), url('font/equipthi-webfont_thin.woff') format('woff');
+          font-weight: 300;
+          font-display: swap;
+          unicode-range: U+000-5FF;
       }
+
+      @font-face {
+          font-family: EquipExtended;
+          src: url('font/equipextreg-webfont.woff2') format('woff2'), url('font/equipextreg-webfont.woff') format('woff');
+          font-display: swap;
+          unicode-range: U+000-5FF;
+      }
+
+      @font-face {
+          font-family: EquipExtended;
+          src: url('font/equipextmed-webfont.woff2') format('woff2'), url('font/equipextmed-webfont.woff') format('woff');
+          font-weight: 600;
+          font-style: normal;
+          font-display: swap;
+          unicode-range: U+000-5FF;
+      }
+
+      @font-face {
+          font-family: EquipExtended;
+          src: url('font/equipextxbol-webfont.woff2') format('woff2'), url('font/equipextxbol-webfont.woff') format('woff');
+          font-weight: 800;
+          font-style: normal;
+          font-display: swap;
+          unicode-range: U+000-5FF;
+      }
+
 
   </style>
 </head>
 <body>
 <header>
-  <h1>Glocal AI: AI-Board</h1>
-  <p>Revolutionizing Mental Wellbeing & Collaboration</p>
+  <video autoplay="" muted="" loop="" id="background" style="width: 100%;">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="wrapper">
+    <h1>AI Board</h1>
+    <p>The power of AI with the simplicity<br /> of a whiteboard</p>
+    <a class="cta" href="https://ai-board.de">Get started</a>
+  </div>
+
 </header>
 <div class="container">
+
+  <div class="box blue">
+    <div class="max-container">
+      <video autoplay="" muted="" loop="" id="intro" style="width: 100%;">
+        <source src="intro.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="box blue">
+    <div class="max-container">
+      <h2>Mental Wellbeing: More Important Than Ever</h2>
+      <p>Mental wellbeing is crucial for leading a fulfilling and happy life. It refers to our emotional and
+        psychological state, which affects how we think, feel, and behave. In today's world, where we face numerous
+        challenges like war, pandemics, and other issues, mental wellbeing has become more important than ever.</p>
+      <p>With the rise of these challenges, it's easy to feel overwhelmed and stressed, which can take a toll on our
+        mental health. That's why it's crucial to prioritize our mental wellbeing and take steps to improve it. Doing so
+        not only benefits us personally but also helps us better cope with the challenges we face as a society.</p>
+    </div>
+  </div>
+
   <div class="box">
-    <h2>Mental Wellbeing: More Important Than Ever</h2>
-    <p>Mental wellbeing is crucial for leading a fulfilling and happy life. It refers to our emotional and psychological state, which affects how we think, feel, and behave. In today's world, where we face numerous challenges like war, pandemics, and other issues, mental wellbeing has become more important than ever.</p>
-    <p>With the rise of these challenges, it's easy to feel overwhelmed and stressed, which can take a toll on our mental health. That's why it's crucial to prioritize our mental wellbeing and take steps to improve it. Doing so not only benefits us personally but also helps us better cope with the challenges we face as a society.</p>
+    <div class="max-container">
+      <h2>AI-Board: Our Solution for Mental Wellbeing</h2>
+      <p>Given the importance of mental wellbeing, and the ongoing challenges we face in today's world, we believe that
+        our solution can make a meaningful difference in people's lives. Our proposed collaborative board, driven by AI
+        technology, offers a new way to approach mental wellbeing and promote resilience.</p>
+      <p>By providing a personalized platform that helps users discover and optimize ways to achieve a balanced
+        lifestyle and improve their mental wellbeing, our board can help individuals take control of their mental health
+        and overcome the challenges they face. The intuitive and interactive nature of the board encourages users to
+        approach their problems in a creative and innovative way, which can help them find new solutions and develop new
+        coping mechanisms.</p>
+    </div>
   </div>
   <div class="box">
-    <h2>AI-Board: Our Solution for Mental Wellbeing</h2>
-    <p>Given the importance of mental wellbeing, and the ongoing challenges we face in today's world, we believe that our solution can make a meaningful difference in people's lives. Our proposed collaborative board, driven by AI technology, offers a new way to approach mental wellbeing and promote resilience.</p>
-    <p>By providing a personalized platform that helps users discover and optimize ways to achieve a balanced lifestyle and improve their mental wellbeing, our board can help individuals take control of their mental health and overcome the challenges they face. The intuitive and interactive nature of the board encourages users to approach their problems in a creative and innovative way, which can help them find new solutions and develop new coping mechanisms.</p>
+    <div class="max-container">
+      <h2>Unlocking Collaboration & Creativity</h2>
+      <p>While AI-Board is designed
+        to help individuals improve their mental wellbeing, it offers much more than that. With its AI-powered
+        collaborative whiteboard, AI-Board provides a versatile and intuitive platform that can be used to tackle a wide
+        range of challenges and foster innovation.</p>
+      <p>In addition to its mental wellbeing features, AI-Board also provides templates for health and nutrition,
+        allowing users to generate customized meal plans based on their preferences and dietary needs. Collaborating
+        with others has never been easier with AI-Board's state-of-the-art collaboration tools, which can help users
+        unlock the power of teamwork and create extraordinary outcomes.</p>
+    </div>
   </div>
   <div class="box">
-    <h2>Unlocking Collaboration & Creativity</h2>
-    <p>While AI-Board is designed
-      to help individuals improve their mental wellbeing, it offers much more than that. With its AI-powered collaborative whiteboard, AI-Board provides a versatile and intuitive platform that can be used to tackle a wide range of challenges and foster innovation.</p>
-    <p>In addition to its mental wellbeing features, AI-Board also provides templates for health and nutrition, allowing users to generate customized meal plans based on their preferences and dietary needs. Collaborating with others has never been easier with AI-Board's state-of-the-art collaboration tools, which can help users unlock the power of teamwork and create extraordinary outcomes.</p>
-  </div>
-  <div class="box">
-    <h2>Experience the AI-Board Revolution</h2>
-    <p>Furthermore, AI-Board's seamless fusion of AI technology and an intuitive whiteboard interface empowers users to visualize their ideas, discover hidden connections, and unleash their creativity. Whether you're looking to improve your mental wellbeing, revolutionize your health and nutrition, collaborate with others, or unleash your inner innovator, AI-Board offers a powerful tool that combines artificial intelligence and human ingenuity to help you achieve your goals.</p>
-    <p>Join the AI-Board revolution today and experience a new era of problem-solving that unlocks the future.</p>
+    <div class="max-container">
+      <h2>Experience the AI-Board Revolution</h2>
+      <p>Furthermore, AI-Board's seamless fusion of AI technology and an intuitive whiteboard interface empowers users
+        to visualize their ideas, discover hidden connections, and unleash their creativity. Whether you're looking to
+        improve your mental wellbeing, revolutionize your health and nutrition, collaborate with others, or unleash your
+        inner innovator, AI-Board offers a powerful tool that combines artificial intelligence and human ingenuity to
+        help you achieve your goals.</p>
+      <p>Join the AI-Board revolution today and experience a new era of problem-solving that unlocks the future.</p>
+    </div>
   </div>
   <div class="cta">
     <button onclick="location.href='https://ai-board.de/'">Get Started with AI-Board</button>
