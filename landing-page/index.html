@@ -75,6 +75,7 @@
           font-weight: 600;
           margin-bottom: 20px;
           font-size: 38px;
+          line-height: 1.25;
       }
 
       header h1 {
@@ -98,6 +99,7 @@
 
       .box {
           border-bottom: 1px solid #e5e5e5;
+          padding: 0 2em
       }
 
       .box:last-child {
@@ -127,6 +129,7 @@
           color: white;
           margin: 10px 0 10px 0;
       }
+
       .members p {
           color: var(--color-green);
           margin: 0;
@@ -140,6 +143,20 @@
       .members img {
           width: 100px;
           border-radius: 50%;
+      }
+
+      #nagarro-logo {
+          top: 35px;
+          right: 35px;
+          width: 80px;
+          position: absolute;
+      }
+
+      #m3-logo {
+          top: -10px;
+          left: -10px;
+          width: 200px;
+          position: absolute;
       }
 
       @font-face {
@@ -182,13 +199,63 @@
           unicode-range: U+000-5FF;
       }
 
+      @media screen and (max-width: 800px) {
+          #intro {
+              border-radius: 20px;
+              border: 0 none;
+              padding: 0;
+          }
+
+          .cta {
+              margin-top: 20px;
+              padding: 10px 60px;
+          }
+
+          #nagarro-logo {
+              top: 18px;
+              right: 18px;
+              width: 40px;
+              position: absolute;
+          }
+
+          #m3-logo {
+              top: -5px;
+              left: -5px;
+              width: 100px;
+              position: absolute;
+          }
+
+          header h1 {
+              font-size: 40px;
+              margin-bottom: 10px;
+          }
+
+          header p {
+              font-size: 16px;
+          }
+
+          .members {
+              flex-direction: column;
+              padding: 50px 0;
+          }
+
+          .member {
+              margin-bottom: 50px;
+          }
+
+          .members img {
+              width: 200px;
+          }
+
+      }
+
 
   </style>
 </head>
 <body>
 <header>
-  <img src="m3-logo.png" style="top: -10px; left: -10px; width: 200px; position: absolute;" />
-  <img src="nagarro.png" style="top: 35px; right: 35px; width: 80px; position: absolute;" />
+  <img id="m3-logo" src="m3-logo.png"/>
+  <img id="nagarro-logo" src="nagarro.png"/>
   <video autoplay="" muted="" loop="" id="background" style="width: 100%;">
     <source src="background.mp4" type="video/mp4">
   </video>
@@ -266,21 +333,21 @@
 
 
         <div class="member">
-          <img src="team/Adrian.jpg" />
+          <img src="team/Adrian.jpg"/>
           <h3>Adrian Spirescu</h3>
           <p>Code Wizard</p>
           <p>Austria</p>
         </div>
 
         <div class="member">
-          <img src="team/Iqbal.jpg" />
+          <img src="team/Iqbal.jpg"/>
           <h3>Iqbal Singh</h3>
           <p>Motion Maestro</p>
           <p>India</p>
         </div>
 
         <div class="member">
-          <img src="team/Shaimaa.jpg" />
+          <img src="team/Shaimaa.jpg"/>
           <h3>Shaimaa Hisham</h3>
           <p>UX Maven</p>
           <p>UAE</p>
@@ -288,14 +355,14 @@
 
 
         <div class="member">
-          <img src="team/Silvio.jpg" />
+          <img src="team/Silvio.jpg"/>
           <h3>Silvio Eckermann</h3>
           <p>Cyber Overlord</p>
           <p>Germany</p>
         </div>
 
         <div class="member">
-          <img src="team/Vishesh.jpg" />
+          <img src="team/Vishesh.jpg"/>
           <h3>Vishesh Shukla</h3>
           <p>Tech Ninja</p>
           <p>India</p>

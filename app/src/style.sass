@@ -117,7 +117,7 @@ body
       &.active
         transform: translateY(0)
       .main
-
+        margin-bottom: 30px
         p
           color: #999
       .template
@@ -125,7 +125,7 @@ body
         flex-direction: column
         list-style: none
         padding: 20px
-        justify-content: end
+        position: relative
         flex: 1 0 250px
         height: 260px
         border: 2px solid var(--color-gray)
@@ -133,6 +133,15 @@ body
         cursor: pointer
         &:hover
           border-color: var(--color-blue)
+        img
+          height: 100px
+          align-self: end
+          position: absolute
+          bottom: 10px
+        h3
+          color: var(--color-green)
+          font-size: 24px
+          margin-bottom: 10px
     #container
       top: 60px
       position: absolute
