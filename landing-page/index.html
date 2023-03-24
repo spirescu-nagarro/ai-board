@@ -36,6 +36,12 @@
           border-bottom: 0 none !important;
       }
 
+      .dark {
+          background-color: var(--color-black);
+          color: white;
+          border-bottom: 0 none !important;
+      }
+
       header {
           color: white;
           text-align: center;
@@ -53,7 +59,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          background: rgba(19, 41,75, 0.3);
+          background: rgba(19, 41, 75, 0.3);
       }
 
       #intro {
@@ -110,6 +116,31 @@
           font-family: 'EquipExtended', sans-serif;
       }
 
+      .members {
+          display: flex;
+          padding: 100px 0;
+      }
+
+      .members h3, .members p {
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          margin: 10px 0 10px 0;
+      }
+      .members p {
+          color: var(--color-green);
+          margin: 0;
+      }
+
+      .member {
+          flex: 1;
+          text-align: center;
+      }
+
+      .members img {
+          width: 100px;
+          border-radius: 50%;
+      }
 
       @font-face {
           font-family: Equip;
@@ -161,7 +192,7 @@
   </video>
   <div class="wrapper">
     <h1>AI-Board</h1>
-    <p>The power of AI with the simplicity<br /> of a whiteboard</p>
+    <p>The power of AI with the simplicity<br/> of a whiteboard</p>
     <a class="cta" href="https://ai-board.de">Get started</a>
   </div>
 
@@ -225,6 +256,54 @@
       <p>Join the AI-Board revolution today and experience a new era of problem-solving that unlocks the future.</p>
     </div>
   </div>
+
+  <div class="box dark">
+    <div class="max-container">
+      <h2>Team Glocal</h2>
+      <div class="members">
+
+
+
+        <div class="member">
+          <img src="team/Adrian.jpg" />
+          <h3>Adrian Spirescu</h3>
+          <p>Code Wizard</p>
+          <p>Austria</p>
+        </div>
+
+        <div class="member">
+          <img src="team/Iqbal.jpg" />
+          <h3>Iqbal Singh</h3>
+          <p>Motion Maestro</p>
+          <p>India</p>
+        </div>
+
+        <div class="member">
+          <img src="team/Shaimaa.jpg" />
+          <h3>Shaimaa Hisham</h3>
+          <p>UX Maven</p>
+          <p>UAE</p>
+        </div>
+
+
+        <div class="member">
+          <img src="team/Silvio.jpg" />
+          <h3>Silvio Eckermann</h3>
+          <p>Cyber Overlord</p>
+          <p>Germany</p>
+        </div>
+
+        <div class="member">
+          <img src="team/Vishesh.jpg" />
+          <h3>Vishesh Shukla</h3>
+          <p>Tech Ninja</p>
+          <p>India</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 </body>
