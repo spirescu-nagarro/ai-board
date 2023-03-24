@@ -10,6 +10,7 @@ import {
 } from "./board";
 import {notify} from "./notifications";
 import {nodeOffset} from "./index";
+import {dynamicMenuRequestId} from "./menu";
 
 export function generateImage(prompt: string) {
     const initialNode = getLastSelectedNode()
@@ -88,7 +89,7 @@ export function generateCompletion(prompt: string) {
 
 
 
-export function createChatCompletion(context: any, menuNode: JQuery) {
+export function createChatCompletion(context: any, menuNode: JQuery, requestId: number) {
     fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -118,6 +119,8 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
     })
         .then(response => response.json())
         .then(data => {
+            if (requestId !== dynamicMenuRequestId)
+                return
             checkForErrors(data)
             const dynamicOptions = JSON.parse(data.choices[0].message.content.replace('```json', '').replace('```', ''))
 
@@ -128,11 +131,10 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
                     .attr('title', dynamicOption.prompt)
                     .html(dynamicOption.label))
             }
+            $(menuNode).find('.loading').remove()
         })
         .catch(error => {
             handleError(error)
-        })
-        .finally(() => {
             $(menuNode).find('.loading').remove()
         })
 }

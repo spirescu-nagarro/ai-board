@@ -3,6 +3,8 @@ import {createChatCompletion, generateCompletion, generateImage} from "./openAi"
 import {downloadBase64File} from "./util";
 import {createTextNode, getLastSelectedNode, stage} from "./board";
 
+export let dynamicMenuRequestId = 0
+
 export function openContextMenu(target: any) {
     let menuNode = $('#menu-text')
     if (target.constructor.name === 'Text') {
@@ -24,7 +26,8 @@ function getDynamicMenuOptions(menuNode: JQuery, currentShape: any) {
         .append($('<div>').addClass('loader'))
     )
     const context = currentShape.text()
-    createChatCompletion(context, menuNode);
+    dynamicMenuRequestId++
+    createChatCompletion(context, menuNode, dynamicMenuRequestId);
 }
 
 export function loadMenu(templateName: string) {

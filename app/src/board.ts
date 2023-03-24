@@ -7,7 +7,7 @@ import {nodeOffset} from "./index";
 export let stage: Konva.Stage
 export let layer: Konva.Layer
 
-let positionForNextNode = {x: 0, y: 50}
+let positionForNextNode = {x: 0, y: 30}
 export let selectedNodes: any[] = []
 let firstNodeForConnectionSelected = false
 
