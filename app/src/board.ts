@@ -14,7 +14,11 @@ export function getSelectedNode() {
     return selectedNode
 }
 export function setSelectedNode(node: any) {
+    if (selectedNode) {
+        selectedNode.background.fill('white')
+    }
     selectedNode = node
+    selectedNode.background.fill('yellow')
 }
 
 export function makeNodeConnectable(node: any) {
@@ -27,6 +31,12 @@ export function makeNodeConnectable(node: any) {
                 firstNodeForConnectionSelected = false
             }
         }
+    })
+}
+
+export function makeNodeSelectable(textNode: any) {
+    textNode.on('click', (e: any) => {
+        setSelectedNode(e.target)
     })
 }
 
@@ -51,6 +61,7 @@ export function createTextNode(text: string, x = 20, y = positionForNextNode.y +
     layer.add(textNode)
     makeNodeEditable(textNode)
     makeNodeConnectable(textNode)
+    makeNodeSelectable(textNode)
     positionForNextNode.y = textNode.y() + textNode.height()
     return textNode
 }

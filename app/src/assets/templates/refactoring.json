@@ -1,0 +1,54 @@
+{
+  "menu": [
+    {
+      "label": "Refactor Code",
+      "prompt": "Refactor this code",
+      "output_format": "text"
+    },
+    {
+      "label": "Write Unit Test",
+        "prompt": "Write one unit tests for this code",
+        "output_format": "text"
+    },
+    {
+      "label": "Write Documentation",
+        "prompt": "Write documentation for this code",
+        "output_format": "text"
+    },
+    {
+      "label": "Write Code Review",
+        "prompt": "Write a code review for this code",
+        "output_format": "text"
+    },
+    {
+      "label": "Explain Code",
+        "prompt": "Explain this code",
+        "output_format": "text"
+    },
+    {
+      "label": "Calculate Cyclomatic Complexity",
+        "prompt": "Calculate Cyclomatic Complexity for this code",
+        "output_format": "text"
+    },
+    {
+      "label": "Translate to JavaScript",
+        "prompt": "Translate this code to JavaScript",
+        "output_format": "text"
+    },
+    {
+      "label": "Translate to Python",
+        "prompt": "Translate this code to Python",
+        "output_format": "text"
+    },
+    {
+      "label": "Translate to C#",
+        "prompt": "Translate this code to C#",
+        "output_format": "text"
+    },
+    {
+      "label": "Translate to Java",
+      "prompt": "Translate this code to Java",
+      "output_format": "text"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import * as $ from "jquery";
 import {createTextNode} from "./board";
+import {loadMenu} from "./menu";
 
 export let apiKey = ''
 
@@ -53,7 +54,12 @@ $('.template').on('click', function () {
         createTextNode('Are there any specific goals you have in mind for improving your mental wellbeing?')
     }
     if (template == '3') {
-        createTextNode('A group of neanderthals are hunting a mammoth')
+        loadMenu('refactoring')
+
+        createTextNode('function deleteNullValues(arr) {\n' +
+            '  let outputArr = arr.filter((el) => el !== null);\n' +
+            '  return outputArr;\n' +
+            '}')
     }
 })
 

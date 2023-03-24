@@ -1,7 +1,15 @@
 import {apiKey, startLoading, stopLoading} from "./topbar";
 import * as $ from "jquery";
 import Konva from "konva";
-import {connectNodes, createTextNode, getSelectedNode, layer, makeNodeConnectable, makeNodeResizable} from "./board";
+import {
+    connectNodes,
+    createTextNode,
+    getSelectedNode,
+    layer,
+    makeNodeConnectable,
+    makeNodeResizable,
+    makeNodeSelectable
+} from "./board";
 import {notify} from "./notifications";
 
 export function generateImage(prompt: string) {
@@ -146,6 +154,7 @@ function createImageNode(base64String: string, prompt: string, initialNode: any)
         layer.add(imageNode)
         makeNodeResizable(imageNode, layer)
         makeNodeConnectable(imageNode)
+        makeNodeSelectable(imageNode)
         connectNodes(initialNode, imageNode)
         layer.draw()
     }
