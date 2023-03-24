@@ -2,6 +2,7 @@ import {apiKey, startLoading, stopLoading} from "./topbar";
 import * as $ from "jquery";
 import Konva from "konva";
 import {createTextNode, layer, makeNodeResizable} from "./board";
+import {notify} from "./notifications";
 
 export function generateImage(prompt: string) {
     startLoading()
@@ -21,14 +22,19 @@ export function generateImage(prompt: string) {
     })
         .then(response => response.json())
         .then(data => {
+            checkForErrors(data)
             const image = data.data[0].b64_json
             makeImageBase64(image, prompt)
+            stopLoading()
+        })
+        .catch(error => {
+            handleError(error)
+        })
+        .finally(() => {
             // @ts-ignore
             loadingImageNode.transformer.remove()
             loadingImageNode.remove()
-            stopLoading()
         })
-        .catch(error => console.error(error))
 }
 
 export function generateCompletion(prompt: string) {
@@ -54,12 +60,20 @@ export function generateCompletion(prompt: string) {
     })
         .then(response => response.json())
         .then(data => {
+            checkForErrors(data)
             let message = data.choices[0].text.trim()
             loadingTextNode.text(message)
             stopLoading()
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            handleError(error)
+            // @ts-ignore
+            loadingTextNode.transformer.remove()
+            loadingTextNode.remove()
+        })
 }
+
+
 
 export function createChatCompletion(context: any, menuNode: JQuery) {
     fetch('https://api.openai.com/v1/chat/completions', {
@@ -91,8 +105,9 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
     })
         .then(response => response.json())
         .then(data => {
+            checkForErrors(data)
             const dynamicOptions = JSON.parse(data.choices[0].message.content.replace('```json', '').replace('```', ''))
-            $(menuNode).find('.loading').remove()
+
             for (let dynamicOption of dynamicOptions) {
                 $(menuNode).append($('<li>')
                     .addClass('dynamic completion')
@@ -101,7 +116,12 @@ export function createChatCompletion(context: any, menuNode: JQuery) {
                     .html(dynamicOption.label))
             }
         })
-        .catch(error => console.error(error))
+        .catch(error => {
+            handleError(error)
+        })
+        .finally(() => {
+            $(menuNode).find('.loading').remove()
+        })
 }
 
 function makeImageBase64(base64String: string, prompt: string) {
@@ -121,4 +141,15 @@ function makeImageBase64(base64String: string, prompt: string) {
         makeNodeResizable(konvaImage, layer)
         layer.draw()
     }
+}
+
+function checkForErrors(data: any) {
+    if (!data) throw new Error('No data returned')
+    if (data.error && data.error.message) throw new Error(data.error.message)
+}
+
+function handleError(errorObject:any ) {
+    console.error(errorObject)
+    notify(`Error: ${errorObject}`, 'error')
+    stopLoading()
 }

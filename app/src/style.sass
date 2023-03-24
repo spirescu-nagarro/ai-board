@@ -133,6 +133,19 @@ body
     #container
       top: 60px
       position: absolute
+  #notifications
+    position: absolute
+    bottom: 0
+    right: 0
+    .notification
+      max-width: 400px
+      color: white
+      padding: 10px 20px
+      margin: 10px
+      &.error
+        background-color: var(--color-red)
+      &.success
+        background-color: var(--color-green)
 
 ul.menu, ul.sub-menu
   display: none
