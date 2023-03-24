@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import {setConnectionMode} from "./topbar";
-import {createTextNode, getSelectedNode} from "./board";
+import {createTextNode, getLastSelectedNode, selectedNodes} from "./board";
 
 export function initShortcuts() {
     $(document).on('keydown', (e) => {
@@ -10,24 +10,27 @@ export function initShortcuts() {
         }
         if (e.key === 'Delete') {
             console.log('KEYDOWN', e.key)
-            if (!getSelectedNode())
-                return
-            if (getSelectedNode().transformer)
-                getSelectedNode().transformer.remove()
-            if (getSelectedNode().background)
-                getSelectedNode().background.remove()
-            getSelectedNode().remove()
+            selectedNodes.forEach(node => {
+                if (node.transformer)
+                    node.transformer.remove()
+                if (node.background)
+                    node.background.remove()
+                node.remove()
+            })
         }
 
         if (e.ctrlKey && e.key === 'd') {
-            console.log('KEYDOWN', e.key)
+            console.log('KEYDOWNs', e.key)
             e.preventDefault()
-            if (!getSelectedNode())
-                return
-            const text = getSelectedNode().text()
-            const x = getSelectedNode().getX()
-            const y = getSelectedNode().getY() + getSelectedNode().transformer.height() + 20
-            createTextNode(text, x, y)
+
+            selectedNodes.forEach(node => {
+                const text = node.text()
+                const x = node.getX() + node.transformer.width() + 20
+                const y = node.getY()
+                createTextNode(text, x, y)
+            })
+
+
         }
     })
 

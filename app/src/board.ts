@@ -1,6 +1,7 @@
 import Konva from "konva";
 import * as $ from "jquery";
-import {isConnectionMode, setConnectionMode} from "./topbar";
+import {isConnectionMode} from "./topbar";
+import {openContextMenu} from "./menu";
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
@@ -9,21 +10,10 @@ let positionForNextNode = {x: 0, y: 50}
 export let selectedNodes: any[] = []
 let firstNodeForConnectionSelected = false
 
-let selectedNode: any = null
 
-export function getSelectedNode() {
-    return selectedNode
-}
-export function setSelectedNode(node: any) {
-    if (selectedNode) {
-        selectedNode.background.fill('white')
-    }
-    selectedNode = node
-    selectedNode.background.fill('yellow')
-}
 
 export function makeNodeConnectable(node: any) {
-    node.on('click', (e: any) => {
+    node.on('click', () => {
         if (isConnectionMode()) {
             if (firstNodeForConnectionSelected === false) {
                 firstNodeForConnectionSelected = node
@@ -35,19 +25,12 @@ export function makeNodeConnectable(node: any) {
     })
 }
 
-export function makeNodeSelectable(textNode: any) {
-    // textNode.on('click', (e: any) => {
-    //     setSelectedNode(e.target)
-    // })
+export function getLastSelectedNode() {
+    return selectedNodes[selectedNodes.length - 1]
 }
 
-export function createTextNode(text: string, x = 20, y = positionForNextNode.y + 50) {
-    const initialNode = getSelectedNode()
 
-    if (initialNode) {
-        x = initialNode.getX()
-        y = initialNode.getY() + initialNode.transformer.height() + 20
-    }
+export function createTextNode(text: string, x = 20, y = positionForNextNode.y + 20) {
 
     const textNode = new Konva.Text({
         text,
@@ -62,7 +45,6 @@ export function createTextNode(text: string, x = 20, y = positionForNextNode.y +
     layer.add(textNode)
     makeNodeEditable(textNode)
     makeNodeConnectable(textNode)
-    makeNodeSelectable(textNode)
     positionForNextNode.y = textNode.y() + textNode.height()
     return textNode
 }
@@ -338,16 +320,26 @@ export function initBoard() {
                 node.background.fill('white')
             } else {
                 selectedNodes.push(node)
-                node.background.fill('yellow')
+                node.background.fill('#fbd872')
             }
         } else {
-            selectedNodes.forEach((selectedRect: any) => {
-                selectedRect.background.fill('white')
+            selectedNodes.forEach((selectedNode: any) => {
+                if (selectedNode.background)
+                    selectedNode.background.fill('white')
             })
             selectedNodes = []
             selectedNodes.push(node)
-            node.background.fill('yellow')
+            node.background.fill('#fbd872')
         }
+    })
+
+
+    stage.on('contextmenu', function (e: any) {
+        e.evt.preventDefault()
+        const target = e.target
+        if (target === stage) return
+        selectedNodes.push(target)
+        openContextMenu(target)
     })
 
 }

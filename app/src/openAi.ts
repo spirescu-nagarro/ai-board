@@ -3,17 +3,15 @@ import * as $ from "jquery";
 import Konva from "konva";
 import {
     connectNodes,
-    createTextNode,
-    getSelectedNode,
+    createTextNode, getLastSelectedNode,
     layer,
     makeNodeConnectable,
     makeNodeResizable,
-    makeNodeSelectable
 } from "./board";
 import {notify} from "./notifications";
 
 export function generateImage(prompt: string) {
-    const initialNode = getSelectedNode()
+    const initialNode = getLastSelectedNode()
     startLoading()
     const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, 0,0)
     fetch('https://api.openai.com/v1/images/generations', {
@@ -49,9 +47,9 @@ export function generateImage(prompt: string) {
 }
 
 export function generateCompletion(prompt: string) {
-    const initialNode = getSelectedNode()
+    const initialNode = getLastSelectedNode()
     startLoading()
-    const newNode = createTextNode(`Loading the prompt: ${prompt}...`)
+    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + 20)
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -154,7 +152,6 @@ function createImageNode(base64String: string, prompt: string, initialNode: any)
         layer.add(imageNode)
         makeNodeResizable(imageNode, layer)
         makeNodeConnectable(imageNode)
-        makeNodeSelectable(imageNode)
         connectNodes(initialNode, imageNode)
         layer.draw()
     }
