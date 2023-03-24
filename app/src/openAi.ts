@@ -9,11 +9,12 @@ import {
     makeNodeResizable,
 } from "./board";
 import {notify} from "./notifications";
+import {nodeOffset} from "./index";
 
 export function generateImage(prompt: string) {
     const initialNode = getLastSelectedNode()
     startLoading()
-    const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, 0,0)
+    const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
@@ -49,7 +50,7 @@ export function generateImage(prompt: string) {
 export function generateCompletion(prompt: string) {
     const initialNode = getLastSelectedNode()
     startLoading()
-    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + 20)
+    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -144,7 +145,7 @@ function createImageNode(base64String: string, prompt: string, initialNode: any)
         const imageNode = new Konva.Image({
             image: img,
             x: initialNode.x() + initialNode.width()/2 - 100,
-            y: initialNode.y() + initialNode.height() + 20,
+            y: initialNode.y() + initialNode.height() + nodeOffset,
             width: 200,
             height: 200,
             draggable: true,

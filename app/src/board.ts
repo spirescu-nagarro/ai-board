@@ -2,6 +2,7 @@ import Konva from "konva";
 import * as $ from "jquery";
 import {isConnectionMode} from "./topbar";
 import {openContextMenu} from "./menu";
+import {nodeOffset} from "./index";
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
@@ -30,7 +31,7 @@ export function getLastSelectedNode() {
 }
 
 
-export function createTextNode(text: string, x = 20, y = positionForNextNode.y + 20) {
+export function createTextNode(text: string, x = nodeOffset, y = positionForNextNode.y + nodeOffset) {
 
     const textNode = new Konva.Text({
         text,
@@ -289,28 +290,28 @@ export function initBoard() {
     stage.add(layer)
     layer.draw()
 
-    const scaleBy = 1.10
-    stage.on('wheel', (e) => {
-        e.evt.preventDefault()
-        const oldScale = stage.scaleX()
-        const pointer = stage.getPointerPosition()
-        const mousePointTo = {
-            x: (pointer.x - stage.x()) / oldScale,
-            y: (pointer.y - stage.y()) / oldScale,
-        }
-        let direction = e.evt.deltaY > 0 ? -1 : 1
-        if (e.evt.ctrlKey)
-            direction = -direction
-        const newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy
-        stage.scale({ x: newScale, y: newScale })
-        const newPos = {
-            x: pointer.x - mousePointTo.x * newScale,
-            y: pointer.y - mousePointTo.y * newScale,
-        }
-        stage.position(newPos)
-    })
+    // const scaleBy = 1.10
+    // stage.on('wheel', (e) => {
+    //     e.evt.preventDefault()
+    //     const oldScale = stage.scaleX()
+    //     const pointer = stage.getPointerPosition()
+    //     const mousePointTo = {
+    //         x: (pointer.x - stage.x()) / oldScale,
+    //         y: (pointer.y - stage.y()) / oldScale,
+    //     }
+    //     let direction = e.evt.deltaY > 0 ? -1 : 1
+    //     if (e.evt.ctrlKey)
+    //         direction = -direction
+    //     const newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy
+    //     stage.scale({ x: newScale, y: newScale })
+    //     const newPos = {
+    //         x: pointer.x - mousePointTo.x * newScale,
+    //         y: pointer.y - mousePointTo.y * newScale,
+    //     }
+    //     stage.position(newPos)
+    // })
 
-    layer.on('click', (event) => {
+    stage.on('click', (event) => {
         const node = event.target as any
         const isShiftKeyPressed = event.evt.shiftKey
         if (!event.target) return
@@ -328,8 +329,11 @@ export function initBoard() {
                     selectedNode.background.fill('white')
             })
             selectedNodes = []
-            selectedNodes.push(node)
-            node.background.fill('#fbd872')
+            if (node !== stage) {
+                selectedNodes.push(node)
+                node.background.fill('#fbd872')
+            }
+
         }
     })
 
