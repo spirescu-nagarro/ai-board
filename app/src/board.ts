@@ -166,7 +166,7 @@ export function initBoard() {
     stage.add(layer)
     layer.draw()
 
-    const scaleBy = 1.05
+    const scaleBy = 1.10
     stage.on('wheel', (e) => {
         // stop default scrolling
         e.evt.preventDefault();
@@ -180,7 +180,7 @@ export function initBoard() {
         };
 
         // how to scale? Zoom in? Or zoom out?
-        let direction = e.evt.deltaY > 0 ? 1 : -1;
+        let direction = e.evt.deltaY > 0 ? -1 : 1;
 
         // when we zoom on trackpad, e.evt.ctrlKey is true
         // in that case lets revert direction
