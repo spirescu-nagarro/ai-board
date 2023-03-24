@@ -71,8 +71,34 @@ function connectNodes(node1: any, node2:any) {
     layer.add(arrow)
 
     function adjustPoint(){
+
+        if (node1.getX() + node1.transformer.width() < node2.getX()) {
+            const p=[
+                node1.getX() + node1.transformer.width(),
+                node1.getY() + node1.transformer.height()/2,
+                node2.getX(),
+                node2.getY() + node2.transformer.height()/2,
+            ]
+            // @ts-ignore
+            arrow.setPoints(p)
+            layer.draw()
+            return
+        }
+
+        if (node1.getX() > node2.getX() + node2.transformer.width()) {
+            const p=[
+                node1.getX(),
+                node1.getY() + node1.transformer.height()/2,
+                node2.getX() + node2.transformer.width(),
+                node2.getY() + node2.transformer.height()/2,
+            ]
+            // @ts-ignore
+            arrow.setPoints(p)
+            layer.draw()
+            return
+        }
+
         if (node1.getY() < node2.getY()) {
-            console.log(node1)
             const p=[
                 node1.getX() + node1.transformer.width()/2,
                 node1.getY() + node1.transformer.height(),
