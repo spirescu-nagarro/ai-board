@@ -16,7 +16,7 @@ let firstNodeForConnectionSelected = false
 export function makeNodeConnectable(node: any) {
     node.on('click', () => {
         if (isConnectionMode()) {
-            if (firstNodeForConnectionSelected === false) {
+            if (!firstNodeForConnectionSelected) {
                 firstNodeForConnectionSelected = node
             } else {
                 connectNodes(firstNodeForConnectionSelected, node)
@@ -69,6 +69,14 @@ export function connectNodes(node1: any, node2:any) {
         stroke: 'rgb(70,159, 248)',
         strokeWidth: 1
     })
+
+    if (node1.arrows === undefined)
+        node1.arrows = []
+    node1.arrows.push(arrow)
+
+    if (node2.arrows === undefined)
+        node2.arrows = []
+    node2.arrows.push(arrow)
 
     layer.add(arrow)
 

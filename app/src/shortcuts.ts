@@ -16,12 +16,16 @@ export function initShortcuts() {
                     node.transformer.remove()
                 if (node.background)
                     node.background.remove()
+                // foreach node.arrows remove arrow
+                node.arrows.forEach((arrow: any) => {
+                    arrow.remove()
+                })
                 node.remove()
             })
         }
 
         if (e.ctrlKey && e.key === 'd') {
-            console.log('KEYDOWNs', e.key)
+            console.log('KEYDOWN', e.key)
             e.preventDefault()
 
             selectedNodes.forEach(node => {
