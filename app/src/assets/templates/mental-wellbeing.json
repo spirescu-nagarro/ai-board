@@ -43,6 +43,10 @@
     {
       "label": "Make it shorter",
       "prompt": "Can you make it shorter?"
+    },
+    {
+      "label": "Show me a picture to uplift my mood",
+      "image": "Show me a picture to uplift my mood"
     }
   ]
 }
