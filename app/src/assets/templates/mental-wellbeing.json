@@ -39,6 +39,10 @@
     {
       "label": "Give me an example",
       "prompt": "Can you give me a concrete example?"
+    },
+    {
+      "label": "Make it shorter",
+      "prompt": "Can you make it shorter?"
     }
   ]
 }
