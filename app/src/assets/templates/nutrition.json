@@ -2,15 +2,11 @@
   "menu": [
     {
       "label": "Suggest meals",
-      "prompt": "Provide a list of 5 meals that are healthy and tasty."
+      "prompt": "Provide a list of the names of five meals that are healthy and tasty."
     },
     {
       "label": "Recipe",
-      "prompt": "Please provide a recipe for this meal including the ingredients"
-    },
-    {
-      "label": "Preparation",
-      "prompt": "How can i add the facts into my daily routine?"
+      "prompt": "Please provide the recipe for the meal. Include the ingredients and the preparation steps."
     },
     {
       "label": "Allergy information",
