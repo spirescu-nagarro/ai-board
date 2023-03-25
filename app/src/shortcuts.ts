@@ -17,7 +17,7 @@ export function initShortcuts() {
                 if (node.background)
                     node.background.remove()
                 // foreach node.arrows remove arrow
-                node.arrows.forEach((arrow: any) => {
+                node.arrows?.forEach((arrow: any) => {
                     arrow.remove()
                 })
                 node.remove()
