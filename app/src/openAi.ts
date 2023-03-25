@@ -122,7 +122,7 @@ export function createChatCompletion(context: any, menuNode: JQuery, requestId: 
                 },
                 {
                     "role": "user",
-                    "content": "Based on this block of text, propose 5 possible actions that can be performed on this text. It should have a label called \"label\", which is a very short description of the action not longer than 30 characters. It should have a more verbose prompt called \"prompt\" that describes the action. It should have a output format called \"output_format\" which can be either \"text\" or \"image\". Put the results in a JSON array, where each element is a JSON object with the label, prompt, and output_format fields."
+                    "content": "Create a JSON object based on the given block of text and its overarching theme that contains 5 possible actions that can be performed on the text. Each action should be relevant to the theme and include the following information: \"label\", \"prompt\", and \"output_format\". Make sure the answer consists exclusively of the JSON object and does not include any additional information. The label must be human readable."
                 }
             ],
             "temperature": 0.7,
@@ -139,7 +139,7 @@ export function createChatCompletion(context: any, menuNode: JQuery, requestId: 
             checkForErrors(data)
             const dynamicOptions = JSON.parse(data.choices[0].message.content.replace('```json', '').replace('```', ''))
 
-            for (let dynamicOption of dynamicOptions) {
+            for (let dynamicOption of dynamicOptions.actions) {
                 $(menuNode).append($('<li>')
                     .addClass('dynamic completion')
                     .attr('data-instruction', dynamicOption.prompt)
