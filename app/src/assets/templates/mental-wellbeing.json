@@ -1,0 +1,12 @@
+{
+  "menu": [
+    {
+      "label": "What can I do with this?",
+      "prompt": "What can I do with this?"
+    },
+    {
+      "label": "A second one",
+      "prompt": "What can I do with this?"
+    }
+  ]
+}

@@ -51,6 +51,7 @@ $('.template').on('click', function () {
         createTextNode('This template needs to be implemented')
     }
 
+
     if (template == '3') {
         loadMenu('refactoring')
         createTextNode('function deleteNullValues(arr) {\n' +
