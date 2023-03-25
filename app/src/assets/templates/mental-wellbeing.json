@@ -17,10 +17,6 @@
       "prompt": "Can you provide an example of the fact?"
     },
     {
-      "label": "Explain it better",
-      "prompt": "Can you explain the facts in more detail?"
-    },
-    {
       "label": "Make it shorter",
       "prompt": "Can you make it shorter?"
     },
