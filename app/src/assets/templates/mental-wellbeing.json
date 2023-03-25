@@ -3,34 +3,34 @@
     {
       "label": "Provide an action list",
       "prompt": "What is a list of actions I can take to improve my mental wellbeing?"
-      },
+    },
     {
-      "label": "Practice mindfulness",
+      "label": "Practice mindfulness exercises",
       "prompt": "What are some mindfulness exercises I can try to enhance my mental wellbeing?"
-      },
-      {
+    },
+    {
       "label": "Develop a healthy sleep routine",
       "prompt": "How can I establish a healthy sleep routine to improve my mental wellbeing?"
-      },
-      {
+    },
+    {
       "label": "Engage in physical activity",
       "prompt": "What types of physical activities can I do to boost my mental wellbeing?"
-      },
-      {
+    },
+    {
       "label": "Maintain social connections",
       "prompt": "How can I maintain and develop social connections to enhance my mental wellbeing?"
-      },
-      {
+    },
+    {
       "label": "Manage stress",
       "prompt": "What are some effective stress management techniques that can help improve my mental wellbeing?"
-      },
-        {
-        "label": "Explain therapy options",
-        "prompt": "What are some therapy options that could help improve my mental wellbeing?"
-        },
-        {
-        "label": "Give an example of self-care",
-        "prompt": "Can you provide an example of a self-care activity that could boost my mental wellbeing?"
-        }
+    },
+    {
+      "label": "Explain therapy options",
+      "prompt": "What are some therapy options that could help improve my mental wellbeing?"
+    },
+    {
+      "label": "Give an example of self-care",
+      "prompt": "Can you provide an example of a self-care activity that could boost my mental wellbeing?"
+    }
   ]
 }
