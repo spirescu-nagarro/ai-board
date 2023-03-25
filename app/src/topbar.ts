@@ -44,6 +44,7 @@ $('.template').on('click', function () {
     $('#template-explorer').removeClass('active')
 
     if (template == '1') {
+        loadMenu('mental-wellbeing')
         createTextNode('I am a single parent who has to work, has fixed working hours and little support from my family. I don\'t sleep much, I feel exhausted and I\'m afraid of not being able to cope with the tasks. I am also afraid of losing my job. What can i do?')
     }
 
