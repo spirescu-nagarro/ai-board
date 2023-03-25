@@ -54,6 +54,29 @@ export function generateImage(prompt: string) {
         })
 }
 
+export function imageToText() {
+    const initialNode = getLastSelectedNode()
+    startLoading()
+
+    fetch('http://localhost:3000/vision-api', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            base64Image: initialNode.attrs.image.src.replace('data:image/png;base64,', '')
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            // createImageNode(image, 'prompt', [initialNode])
+            stopLoading()
+        })
+        .catch(error => {
+            handleError(error)
+        })
+}
 
 export function generateVariation() {
 

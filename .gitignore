@@ -7,3 +7,4 @@
 /app/node_modules/
 testfile
 /keys.txt
+/backend/credentials.json

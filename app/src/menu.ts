@@ -1,5 +1,5 @@
 import * as $ from "jquery";
-import {createChatCompletion, generateCompletion, generateImage, generateVariation} from "./openAi";
+import {createChatCompletion, generateCompletion, generateImage, generateVariation, imageToText} from "./openAi";
 import {downloadBase64File} from "./util";
 import {createTextNode, getLastSelectedNode, selectedNodes, stage} from "./board";
 
@@ -105,6 +105,15 @@ export function initMenu() {
         generateVariation()
         $('.menu').hide()
     })
+
+    $('*').on('click', '#image-to-text', (e) => {
+        e.stopPropagation()
+        console.log('imageToText')
+        imageToText()
+        $('.menu').hide()
+    })
+
+
 
     $('*').on('click', '.completion', function (e) {
         e.stopPropagation()
