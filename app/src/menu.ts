@@ -9,7 +9,8 @@ export function openContextMenu(target: any) {
     let menuNode = $('#menu-text')
     let context = ''
     selectedNodes.forEach(node => {
-        context += node.text() + ' '
+        if (node.constructor.name === 'Text')
+            context += node.text() + ' '
     })
 
     if (target.constructor.name === 'Text')
@@ -83,17 +84,21 @@ export function initMenu() {
         createTextNode('<enter text here>')
     })
 
-    $('#delete-button-image, #delete-button-text').on('click', () => {
+
+    $('#download').on('click', () => {
+        downloadBase64File(getLastSelectedNode().image().title + '.png', getLastSelectedNode().image().src)
+    })
+
+    $('*').on('click', '#delete-button-image, #delete-button-text', (e) => {
+        e.stopPropagation()
         if (getLastSelectedNode().transformer)
             getLastSelectedNode().transformer.remove()
         if (getLastSelectedNode().background)
             getLastSelectedNode().background.remove()
         getLastSelectedNode().remove()
+        $('.menu').hide()
     })
 
-    $('#download').on('click', () => {
-        downloadBase64File(getLastSelectedNode().image().title + '.png', getLastSelectedNode().image().src)
-    })
 
     $('*').on('click', '.completion', function (e) {
         e.stopPropagation()
