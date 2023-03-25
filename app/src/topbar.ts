@@ -44,15 +44,7 @@ $('.template').on('click', function () {
     $('#template-explorer').removeClass('active')
 
     if (template == '1') {
-        const a = createTextNode('What are your current stress levels and how do you manage stress?')
-        const b = createTextNode('How is your sleep quality and quantity?')
-        connectNodes(a, b)
-
-        createTextNode('Are you currently struggling with any mental health issues such as anxiety, depression, or trauma?')
-        createTextNode('What is your level of physical activity and how often do you engage in exercise?')
-        createTextNode('What is your current diet and how does it affect your mood?')
-        createTextNode('How do you currently cope with difficult emotions or situations?')
-        createTextNode('Are there any specific goals you have in mind for improving your mental wellbeing?')
+        createTextNode('I am a single parent who has to work, has fixed working hours and little support from my family. I don\'t sleep much, I feel exhausted and I\'m afraid of not being able to cope with the tasks. I am also afraid of losing my job. What can i do?')
     }
 
     if (template == '2') {
