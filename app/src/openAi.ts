@@ -121,8 +121,8 @@ export function createChatCompletion(context: any, menuNode: JQuery, requestId: 
                     "content": `This is a block of text: ${context}`
                 },
                 {
-                    "role": "user",
-                    "content": "Create a JSON object based on the given block of text and its overarching theme that contains 5 possible actions that can be performed on the text. Each action should be relevant to the theme and include the following information: \"label\", \"prompt\", and \"output_format\". Make sure the answer consists exclusively of the JSON object and does not include any additional information. The label must be human readable."
+                    "role": "system",
+                    "content": "Create a JSON object based on the given block of text and its overarching theme that contains 5 possible actions that can be performed on the text. Each action should be relevant to the theme and include the following information: \"label\" and \"prompt\". Make sure the answer consists exclusively of the JSON object and does not include any additional information. The label must be human readable. The prompt executes the action."
                 }
             ],
             "temperature": 0.7,
