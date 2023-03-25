@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import {setConnectionMode} from "./topbar";
-import {createTextNode, getLastSelectedNode, selectedNodes} from "./board";
+import {createTextNode, selectedNodes} from "./board";
 import {nodeOffset} from "./index";
 
 export function initShortcuts() {

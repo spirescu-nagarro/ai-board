@@ -6,7 +6,7 @@ import {
     createTextNode, getLastSelectedNode,
     layer,
     makeNodeConnectable,
-    makeNodeResizable,
+    makeNodeResizable, selectedNodes,
 } from "./board";
 import {notify} from "./notifications";
 import {nodeOffset} from "./index";
@@ -49,9 +49,15 @@ export function generateImage(prompt: string) {
 }
 
 export function generateCompletion(prompt: string) {
+    // copy selectedNodes into intialNodes
+    const initialNodes: any[] = []
     const initialNode = getLastSelectedNode()
+    selectedNodes.forEach(node => {
+        initialNodes.push(node)
+    })
+
     startLoading()
-    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x()+ initialNode.width() + nodeOffset, initialNode.y() )
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -76,7 +82,11 @@ export function generateCompletion(prompt: string) {
             let message = data.choices[0].text.trim()
             newNode.text(message)
             newNode.fire('transform')
-            connectNodes(initialNode, newNode)
+
+            // connect all initialNodes to the newNode
+            initialNodes.forEach(initialNode => {
+                connectNodes(initialNode, newNode)
+            })
             stopLoading()
         })
         .catch(error => {
@@ -86,7 +96,6 @@ export function generateCompletion(prompt: string) {
             newNode.remove()
         })
 }
-
 
 
 export function createChatCompletion(context: any, menuNode: JQuery, requestId: number) {

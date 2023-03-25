@@ -274,6 +274,8 @@ function makeNodeEditable(textNode: any) {
             textarea.css('height', textarea.height() + textNode.fontSize() + 'px')
         })
 
+        textarea.trigger('keydown')
+
         function handleOutsideClick(e: any) {
             if (e.target !== textarea) {
                 textNode.text(textarea.val())
@@ -320,6 +322,11 @@ export function initBoard() {
     // })
 
     stage.on('click', (event) => {
+        // do nothing if it was a right click
+        if (event.evt.button === 2)
+            return;
+
+        console.log('click')
         const node = event.target as any
         const isShiftKeyPressed = event.evt.shiftKey
         if (!event.target) return
@@ -345,12 +352,16 @@ export function initBoard() {
         }
     })
 
-
     stage.on('contextmenu', function (e: any) {
         e.evt.preventDefault()
         const target = e.target
         if (target === stage) return
-        selectedNodes.push(target)
+
+        if (!selectedNodes.includes(target)) {
+            selectedNodes.push(target)
+            target.background.fill('#fbd872')
+        }
+
         openContextMenu(target)
     })
 
