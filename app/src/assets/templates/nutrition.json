@@ -1,0 +1,32 @@
+{
+  "menu": [
+    {
+      "label": "Suggest meals",
+      "prompt": "Provide a list of 5 meals that are healthy and tasty."
+    },
+    {
+      "label": "Recipe",
+      "prompt": "Please provide a recipe for this meal including the ingredients"
+    },
+    {
+      "label": "Preparation",
+      "prompt": "How can i add the facts into my daily routine?"
+    },
+    {
+      "label": "Allergy information",
+      "prompt": "Please provide me with the allergy information."
+    },
+    {
+      "label": "Nutritional values",
+      "prompt": "Please provide me a raw estimate of the nutritional values"
+    },
+    {
+      "label": "Suggest alternative",
+      "prompt": "Can you suggest an alternative?"
+    },
+    {
+      "label": "Shopping list",
+      "prompt": "Create a shopping list."
+    }
+  ]
+}

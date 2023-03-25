@@ -46,7 +46,12 @@ $('.template').on('click', function () {
     }
 
     if (template == '2') {
-        createTextNode('This template needs to be implemented')
+        loadMenu('nutrition')
+        createTextNode('Show me five healthy recipes with seasonal vegetables')
+        createTextNode('My favorite ingredients are: potatoes, carrots, onions, garlic, tomatoes')
+        createTextNode('I am lactose intolerant and I have a gluten allergy')
+        createTextNode('I am vegan')
+        createTextNode('I am vegetarian')
     }
 
     if (template == '3') {
