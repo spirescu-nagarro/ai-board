@@ -9,7 +9,7 @@ import {
     makeNodeResizable, selectedNodes,
 } from "./board";
 import {notify} from "./notifications";
-import {nodeOffset} from "./index";
+import {imageSize, nodeOffset} from "./index";
 import {dynamicMenuRequestId} from "./menu";
 
 export function generateImage(prompt: string) {
@@ -22,6 +22,7 @@ export function generateImage(prompt: string) {
     const initialNode = getLastSelectedNode()
     startLoading()
     const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
@@ -31,7 +32,7 @@ export function generateImage(prompt: string) {
         body: JSON.stringify({
             prompt: prompt,
             n: 1,
-            size: '1024x1024',
+            size: imageSize,
             response_format: 'b64_json'
         })
     })
@@ -57,8 +58,7 @@ export function generateImage(prompt: string) {
 export function imageToText() {
     const initialNode = getLastSelectedNode()
     startLoading()
-
-    fetch('http://localhost:3000/vision-api', {
+    fetch(location.protocol + '//' +location.hostname + ':3000/vision-api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -69,8 +69,12 @@ export function imageToText() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            // createImageNode(image, 'prompt', [initialNode])
+            const keywords = []
+            for (let a of data.labelAnnotations) {
+                keywords.push(a.description)
+            }
+            const newNode = createTextNode('The image contains the following things: ' + keywords.join(', '), initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+            connectNodes(initialNode, newNode)
             stopLoading()
         })
         .catch(error => {
