@@ -58,7 +58,7 @@ export function generateImage(prompt: string) {
 export function imageToText() {
     const initialNode = getLastSelectedNode()
     startLoading()
-    fetch(location.protocol + '//' +location.hostname + ':3000/vision-api', {
+    fetch(location.protocol + '//' +location.hostname + ':3333/vision-api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
