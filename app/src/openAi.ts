@@ -9,7 +9,7 @@ import {
     makeNodeResizable, selectedNodes,
 } from "./board";
 import {notify} from "./notifications";
-import {imageSize, nodeOffset} from "./index";
+import {imageSize, maxTokens, nodeOffset} from "./index";
 import {dynamicMenuRequestId} from "./menu";
 import {base64toFile} from "./util";
 
@@ -143,7 +143,7 @@ export function generateCompletion(prompt: string) {
         body: JSON.stringify({
             "model": "text-davinci-003",
             "prompt": prompt + "###",
-            "max_tokens": 300,
+            "max_tokens": maxTokens,
             "temperature": 0.7,
             "top_p": 1,
             "n": 1,
@@ -173,6 +173,7 @@ export function generateCompletion(prompt: string) {
 }
 
 export function createChatCompletion(context: any, menuNode: JQuery, requestId: number) {
+
     fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -181,7 +182,7 @@ export function createChatCompletion(context: any, menuNode: JQuery, requestId: 
         },
         body: JSON.stringify({
             "frequency_penalty": 0,
-            "max_tokens": 500,
+            "max_tokens": maxTokens,
             "model": "gpt-3.5-turbo",
             "messages": [
                 {

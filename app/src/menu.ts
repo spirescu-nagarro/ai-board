@@ -1,7 +1,14 @@
 import * as $ from "jquery";
 import {createChatCompletion, generateCompletion, generateImage, generateVariation, imageToText} from "./openAi";
 import {downloadBase64File} from "./util";
-import {createTextNode, getContextFromSelection, getLastSelectedNode, selectedNodes, stage} from "./board";
+import {
+    connectNodes,
+    createTextNode,
+    getContextFromSelection,
+    getLastSelectedNode,
+    selectedNodes,
+    stage
+} from "./board";
 
 export let dynamicMenuRequestId = 0
 
@@ -78,6 +85,19 @@ export function initMenu() {
 
     $('#download').on('click', () => {
         downloadBase64File(getLastSelectedNode().image().title + '.png', getLastSelectedNode().image().src)
+    })
+
+    $('*').on('click', '#split', function (e) {
+        e.stopPropagation()
+        const initialNode = getLastSelectedNode()
+        const text = initialNode.text()
+        const rows = text.split('\n')
+        for (let row of rows) {
+            const newNode = createTextNode(row)
+            connectNodes(initialNode, newNode)
+        }
+
+        $('.menu').hide()
     })
 
     $('*').on('click', '#delete-button-image, #delete-button-text', (e) => {
