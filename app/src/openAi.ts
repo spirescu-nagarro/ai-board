@@ -54,6 +54,48 @@ export function generateImage(prompt: string) {
         })
 }
 
+
+export function generateVariation() {
+
+    const initialNode = getLastSelectedNode()
+    console.log(initialNode)
+
+    startLoading()
+    const loadingImageNode = createTextNode(`Creating variation`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+
+    const formData = new FormData()
+    formData.append('image', initialNode.attrs.image.src)
+    formData.append('n', '1')
+    formData.append('size', '1024x1024')
+    formData.append('response_format', 'b64_json')
+
+    fetch('https://api.openai.com/v1/images/variations', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            checkForErrors(data)
+            const image = data.data[0].b64_json
+            createImageNode(image, 'prompt', [initialNode])
+            stopLoading()
+        })
+        .catch(error => {
+            handleError(error)
+        })
+        .finally(() => {
+            // @ts-ignore
+            loadingImageNode.transformer.remove()
+            // @ts-ignore
+            loadingImageNode.background.remove()
+            loadingImageNode.remove()
+        })
+}
+
 export function generateCompletion(prompt: string) {
     // copy selectedNodes into intialNodes
     const initialNodes: any[] = []

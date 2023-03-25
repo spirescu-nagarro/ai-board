@@ -1,5 +1,5 @@
 import * as $ from "jquery";
-import {createChatCompletion, generateCompletion, generateImage} from "./openAi";
+import {createChatCompletion, generateCompletion, generateImage, generateVariation} from "./openAi";
 import {downloadBase64File} from "./util";
 import {createTextNode, getLastSelectedNode, selectedNodes, stage} from "./board";
 
@@ -99,6 +99,12 @@ export function initMenu() {
         $('.menu').hide()
     })
 
+    $('*').on('click', '#create-variation', (e) => {
+        e.stopPropagation()
+        console.log('create variation')
+        generateVariation()
+        $('.menu').hide()
+    })
 
     $('*').on('click', '.completion', function (e) {
         e.stopPropagation()
