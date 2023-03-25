@@ -12,7 +12,6 @@ export function openContextMenu(target: any) {
         if (node.constructor.name === 'Text')
             context += node.text() + ' '
     })
-
     if (target.constructor.name === 'Text')
         getDynamicMenuOptions(menuNode, context)
 
@@ -71,14 +70,11 @@ export function loadMenu(templateName: string) {
 
 export function initMenu() {
 
-
-
     $('#add-text-node').on('click', () => {
         createTextNode('fire and ice and thunder surrounding a wizard hero portrait')
         // createTextNode('<enter text here>')
         // createTextNode('minimalist neumorphism logotype of the letters AI, symmetrical, blue with extremely soft shadows, simple UI UX, futuristic, soft edges, clean, cloud, ai')
     })
-
 
     $('#download').on('click', () => {
         downloadBase64File(getLastSelectedNode().image().title + '.png', getLastSelectedNode().image().src)
@@ -106,15 +102,6 @@ export function initMenu() {
         $('.menu').hide()
     })
 
-    // $('*').on('click', '.image-generation', (e) => {
-    //     e.stopPropagation()
-    //     const instruction = $(this).attr('data-instruction')
-    //     const context = getContextFromSelection()
-    //     console.log($(this), this, instruction, context)
-    //     generateImage(context, instruction)
-    //     $('.menu').hide()
-    // })
-
     $('*').on('click', '.completion, .image-generation', function (e) {
         e.stopPropagation()
         const instruction = $(this).attr('data-instruction')
@@ -124,11 +111,8 @@ export function initMenu() {
         }
         else
             generateCompletion(instruction + context)
-        console.log($(this), this, instruction, context)
         $('.menu').hide()
     })
-
-
 
     $('body').on('click', () => {
         $('.menu').hide()
