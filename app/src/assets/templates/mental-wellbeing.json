@@ -31,6 +31,14 @@
     {
       "label": "Give an example of self-care",
       "prompt": "Can you provide an example of a self-care activity that could boost my mental wellbeing?"
+    },
+    {
+      "label": "Explain it better",
+      "prompt": "Can you explain the facts in more detail?"
+    },
+    {
+      "label": "Give me an example",
+      "prompt": "Can you give me a concrete example?"
     }
   ]
 }
