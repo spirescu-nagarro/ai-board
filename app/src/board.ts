@@ -256,6 +256,7 @@ function makeNodeEditable(textNode: any) {
             const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
             if (isSafari || isFirefox)
                 newWidth = Math.ceil(newWidth)
+            newWidth = newWidth - 15
             textarea.css('width', newWidth + 'px')
         }
 
@@ -271,15 +272,26 @@ function makeNodeEditable(textNode: any) {
         textarea.on('keydown', function () {
             const scale = textNode.getAbsoluteScale().x
             setTextareaWidth(textNode.width() * scale)
-            textarea.css('height', textarea.height() + textNode.fontSize() + 'px')
+
+            const textField = textarea.get(0)
+
+            if (textField.clientHeight < textField.scrollHeight) {
+                textField.style.height = textField.scrollHeight + "px";
+                if (textField.clientHeight < textField.scrollHeight)
+                    textField.style.height = (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+            }
         })
 
-        textarea.trigger('keydown')
+        setTimeout(() => {
+            textarea.trigger('keydown')
+        }, 50)
+
 
         function handleOutsideClick(e: any) {
             if (e.target !== textarea) {
                 textNode.text(textarea.val())
                 removeTextarea()
+                textNode.fire('transform')
             }
         }
         setTimeout(() => {
