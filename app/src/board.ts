@@ -3,15 +3,22 @@ import * as $ from "jquery";
 import {isConnectionMode} from "./topbar";
 import {openContextMenu} from "./menu";
 import {nodeOffset} from "./index";
+import Text = Konva.Text;
+import Image = Konva.Image;
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
 
-let positionForNextNode = {x: 0, y: 30}
+type CustomNode = {
+    background?: Konva.Rect,
+    transformer?: Konva.Transformer,
+    arrows?: Konva.Arrow[],
+}
+export type BoardNode = Text & CustomNode | Image & CustomNode
+
 export let selectedNodes: any[] = []
+let positionForNextNode = {x: 0, y: 30}
 let firstNodeForConnectionSelected = false
-
-
 
 export function makeNodeConnectable(node: any) {
     node.on('click', () => {
@@ -30,9 +37,7 @@ export function getLastSelectedNode() {
     return selectedNodes[selectedNodes.length - 1]
 }
 
-
-export function createTextNode(text: string, x = nodeOffset, y = positionForNextNode.y + nodeOffset) {
-
+export function createTextNode(text: string, x = nodeOffset, y = positionForNextNode.y + nodeOffset): any {
     const textNode = new Konva.Text({
         text,
         x,
@@ -60,7 +65,7 @@ export function makeNodeResizable(node: any, layer: any) {
 }
 
 
-export function connectNodes(node1: any, node2:any) {
+export function connectNodes(node1: any, node2: any) {
     const arrow = new Konva.Arrow({
         points: [node1.getX(), node1.getY(), node2.getX(), node2.getY()],
         pointerLength: 10,

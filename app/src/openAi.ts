@@ -11,9 +11,11 @@ import {
 import {notify} from "./notifications";
 import {imageSize, nodeOffset} from "./index";
 import {dynamicMenuRequestId} from "./menu";
+import {base64toFile} from "./util";
+
+
 
 export function generateImage(prompt: string) {
-
     const initialNodes: any[] = []
     selectedNodes.forEach(node => {
         initialNodes.push(node)
@@ -47,10 +49,8 @@ export function generateImage(prompt: string) {
             handleError(error)
         })
         .finally(() => {
-            // @ts-ignore
-            loadingImageNode.transformer.remove()
-            // @ts-ignore
-            loadingImageNode.background.remove()
+            loadingImageNode.transformer?.remove()
+            loadingImageNode.background?.remove()
             loadingImageNode.remove()
         })
 }
@@ -62,6 +62,8 @@ export function imageToText() {
     let hostname = location.hostname
     if (hostname !== 'localhost')
         hostname = 'api.' + hostname
+    else
+        hostname = 'localhost:3000'
 
     fetch(location.protocol + '//' +hostname + '/vision-api', {
         method: 'POST',
@@ -87,24 +89,28 @@ export function imageToText() {
         })
 }
 
-export function generateVariation() {
+
+
+export async function generateVariation() {
 
     const initialNode = getLastSelectedNode()
     console.log(initialNode)
 
     startLoading()
     const loadingImageNode = createTextNode(`Creating variation`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+    const b64EncodedString = initialNode.attrs.image.src
+
+    const file = base64toFile(b64EncodedString, 'image.png')
 
     const formData = new FormData()
-    formData.append('image', initialNode.attrs.image.src)
-    formData.append('n', '1')
-    formData.append('size', '1024x1024')
+    formData.append('image', file)
+    formData.append('n', "1")
+    formData.append('size', imageSize)
     formData.append('response_format', 'b64_json')
 
     fetch('https://api.openai.com/v1/images/variations', {
         method: 'POST',
         headers: {
-            'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${apiKey}`
         },
         body: formData

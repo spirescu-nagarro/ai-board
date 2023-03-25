@@ -82,6 +82,7 @@ export function initMenu() {
 
     $('#add-text-node').on('click', () => {
         createTextNode('<enter text here>')
+        // createTextNode('minimalist neumorphism logotype of the letters AI, symmetrical, blue with extremely soft shadows, simple UI UX, futuristic, soft edges, clean, cloud, ai')
     })
 
 
