@@ -345,20 +345,19 @@ export function initBoard() {
         if (isShiftKeyPressed) {
             if (selectedNodes.includes(node)) {
                 selectedNodes.splice(selectedNodes.indexOf(node), 1)
-                node.background.fill('white')
+                node.background?.fill('white')
             } else {
                 selectedNodes.push(node)
-                node.background.fill('#fbd872')
+                node.background?.fill('#fbd872')
             }
         } else {
             selectedNodes.forEach((selectedNode: any) => {
-                if (selectedNode.background)
-                    selectedNode.background.fill('white')
+                selectedNode.background?.fill('white')
             })
             selectedNodes = []
             if (node !== stage) {
                 selectedNodes.push(node)
-                node.background.fill('#fbd872')
+                node.background?.fill('#fbd872')
             }
 
         }
@@ -371,7 +370,7 @@ export function initBoard() {
 
         if (!selectedNodes.includes(target)) {
             selectedNodes.push(target)
-            target.background.fill('#fbd872')
+            target.background?.fill('#fbd872')
         }
 
         openContextMenu(target)

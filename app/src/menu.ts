@@ -65,7 +65,11 @@ export function loadMenu(templateName: string) {
 export function initMenu() {
 
     $('#create-image').on('click', () => {
-        generateImage(getLastSelectedNode().text())
+        let context = ''
+        selectedNodes.forEach(node => {
+            context += node.text() + ' '
+        })
+        generateImage(context)
     })
 
     $('#add-text-node').on('click', () => {

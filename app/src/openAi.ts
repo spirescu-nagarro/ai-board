@@ -13,6 +13,12 @@ import {nodeOffset} from "./index";
 import {dynamicMenuRequestId} from "./menu";
 
 export function generateImage(prompt: string) {
+
+    const initialNodes: any[] = []
+    selectedNodes.forEach(node => {
+        initialNodes.push(node)
+    })
+
     const initialNode = getLastSelectedNode()
     startLoading()
     const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
@@ -33,7 +39,7 @@ export function generateImage(prompt: string) {
         .then(data => {
             checkForErrors(data)
             const image = data.data[0].b64_json
-            createImageNode(image, prompt, initialNode)
+            createImageNode(image, prompt, initialNodes)
             stopLoading()
         })
         .catch(error => {
@@ -148,7 +154,8 @@ export function createChatCompletion(context: any, menuNode: JQuery, requestId: 
         })
 }
 
-function createImageNode(base64String: string, prompt: string, initialNode: any) {
+function createImageNode(base64String: string, prompt: string, initialNodes: any[]) {
+    const initialNode = getLastSelectedNode()
     const img = new Image()
     img.src = `data:image/png;base64,${base64String}`
     img.title = prompt
@@ -164,7 +171,10 @@ function createImageNode(base64String: string, prompt: string, initialNode: any)
         layer.add(imageNode)
         makeNodeResizable(imageNode, layer)
         makeNodeConnectable(imageNode)
-        connectNodes(initialNode, imageNode)
+        // connect all initialNodes to the imageNode
+        initialNodes.forEach(initialNode => {
+            connectNodes(initialNode, imageNode)
+        })
         layer.draw()
     }
 }
