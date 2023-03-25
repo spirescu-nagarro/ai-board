@@ -23,7 +23,7 @@ export function generateImage(prompt: string, instruction: string) {
 
     const initialNode = getLastSelectedNode()
     startLoading()
-    const loadingImageNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+    const loadingImageNode = createTextNode(`Loading the prompt: ${instruction} ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
 
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',

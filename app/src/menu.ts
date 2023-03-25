@@ -74,7 +74,8 @@ export function initMenu() {
 
 
     $('#add-text-node').on('click', () => {
-        createTextNode('<enter text here>')
+        createTextNode('fire and ice and thunder surrounding a wizard hero portrait')
+        // createTextNode('<enter text here>')
         // createTextNode('minimalist neumorphism logotype of the letters AI, symmetrical, blue with extremely soft shadows, simple UI UX, futuristic, soft edges, clean, cloud, ai')
     })
 
@@ -105,21 +106,29 @@ export function initMenu() {
         $('.menu').hide()
     })
 
-    $('*').on('click', '.completion', function (e) {
+    // $('*').on('click', '.image-generation', (e) => {
+    //     e.stopPropagation()
+    //     const instruction = $(this).attr('data-instruction')
+    //     const context = getContextFromSelection()
+    //     console.log($(this), this, instruction, context)
+    //     generateImage(context, instruction)
+    //     $('.menu').hide()
+    // })
+
+    $('*').on('click', '.completion, .image-generation', function (e) {
         e.stopPropagation()
         const instruction = $(this).attr('data-instruction')
         const context = getContextFromSelection()
-        generateCompletion(instruction + context)
+        if ($(this).hasClass('image-generation')) {
+            generateImage(context, instruction)
+        }
+        else
+            generateCompletion(instruction + context)
+        console.log($(this), this, instruction, context)
         $('.menu').hide()
     })
 
-    $('*').on('click', '.image-generation', (e) => {
-        e.stopPropagation()
-        const instruction = $(this).attr('data-instruction') || ''
-        const context = getContextFromSelection()
-        generateImage(context, instruction)
-        $('.menu').hide()
-    })
+
 
     $('body').on('click', () => {
         $('.menu').hide()

@@ -1,5 +1,5 @@
 import * as $ from "jquery";
-import {connectNodes, createTextNode} from "./board";
+import {createTextNode} from "./board";
 import {loadMenu} from "./menu";
 
 export let apiKey = ''
@@ -15,11 +15,10 @@ export function setConnectionMode(mode: boolean) {
         $('#connect-nodes').removeClass('active')
     }
 }
+
 export function toggleConnectionMode() {
     $('#connect-nodes').toggleClass('active')
 }
-
-
 
 export function startLoading() {
     $('#topbar .loader').addClass('loading')
@@ -49,7 +48,6 @@ $('.template').on('click', function () {
     if (template == '2') {
         createTextNode('This template needs to be implemented')
     }
-
 
     if (template == '3') {
         loadMenu('refactoring')
