@@ -3,8 +3,6 @@ import * as $ from "jquery";
 import {isConnectionMode} from "./topbar";
 import {openContextMenu} from "./menu";
 import {nodeOffset} from "./index";
-import Text = Konva.Text;
-import Image = Konva.Image;
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
@@ -14,11 +12,19 @@ type CustomNode = {
     transformer?: Konva.Transformer,
     arrows?: Konva.Arrow[],
 }
-export type BoardNode = Text & CustomNode | Image & CustomNode
+export type BoardNode = (Konva.Text & CustomNode) | (Konva.Image & CustomNode)
 
 export let selectedNodes: any[] = []
 let positionForNextNode = {x: 0, y: 30}
 let firstNodeForConnectionSelected = false
+
+export function getContextFromSelection() {
+    let context = ''
+    selectedNodes.forEach(node => {
+        context += node.text() + ' '
+    })
+    return context
+}
 
 export function makeNodeConnectable(node: any) {
     node.on('click', () => {
@@ -63,7 +69,6 @@ export function makeNodeResizable(node: any, layer: any) {
     node.transformer = transformer
     layer.add(transformer)
 }
-
 
 export function connectNodes(node1: any, node2: any) {
     const arrow = new Konva.Arrow({
@@ -146,7 +151,6 @@ export function connectNodes(node1: any, node2: any) {
 }
 
 function makeNodeEditable(textNode: any) {
-
     // background
     const textNodeWidth = textNode.width()
     const textNodeHeight = textNode.height()
@@ -165,7 +169,6 @@ function makeNodeEditable(textNode: any) {
     background.moveToBottom()
     textNode.background = background
 
-
     // transformer
     const transformer = new Konva.Transformer({
         node: textNode,
@@ -179,7 +182,6 @@ function makeNodeEditable(textNode: any) {
     })
     textNode.transformer = transformer
     layer.add(transformer)
-
 
     textNode.on('dragmove', function () {
         background.position(textNode.position())
@@ -339,11 +341,8 @@ export function initBoard() {
     // })
 
     stage.on('click', (event) => {
-        // do nothing if it was a right click
         if (event.evt.button === 2)
             return;
-
-        console.log('click')
         const node = event.target as any
         const isShiftKeyPressed = event.evt.shiftKey
         if (!event.target) return
@@ -364,7 +363,6 @@ export function initBoard() {
                 selectedNodes.push(node)
                 node.background?.fill('#fbd872')
             }
-
         }
     })
 
@@ -377,7 +375,6 @@ export function initBoard() {
             selectedNodes.push(target)
             target.background?.fill('#fbd872')
         }
-
         openContextMenu(target)
     })
 

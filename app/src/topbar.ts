@@ -34,10 +34,8 @@ $('#open-templates').on('click', () => {
 })
 
 $('#connect-nodes').on('click', () => {
-    console.log('test')
     toggleConnectionMode()
 })
-
 
 $('.template').on('click', function () {
     const template = $(this).attr('data-id')

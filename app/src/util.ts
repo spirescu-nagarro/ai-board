@@ -1,8 +1,8 @@
 export function downloadBase64File(fileName: any, base64Data:any) {
     const downloadLink = document.createElement("a")
-    downloadLink.href = base64Data;
-    downloadLink.download = fileName;
-    downloadLink.click();
+    downloadLink.href = base64Data
+    downloadLink.download = fileName
+    downloadLink.click()
 }
 
 export function base64toFile(base64String: string, filename: string): File {

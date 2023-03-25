@@ -15,7 +15,7 @@ import {base64toFile} from "./util";
 
 
 
-export function generateImage(prompt: string) {
+export function generateImage(prompt: string, instruction: string) {
     const initialNodes: any[] = []
     selectedNodes.forEach(node => {
         initialNodes.push(node)
@@ -32,7 +32,7 @@ export function generateImage(prompt: string) {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            prompt: prompt,
+            prompt: `${instruction} ${prompt}`,
             n: 1,
             size: imageSize,
             response_format: 'b64_json'
@@ -89,25 +89,17 @@ export function imageToText() {
         })
 }
 
-
-
-export async function generateVariation() {
-
+export function generateVariation() {
     const initialNode = getLastSelectedNode()
-    console.log(initialNode)
-
     startLoading()
     const loadingImageNode = createTextNode(`Creating variation`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
     const b64EncodedString = initialNode.attrs.image.src
-
     const file = base64toFile(b64EncodedString, 'image.png')
-
     const formData = new FormData()
     formData.append('image', file)
     formData.append('n', "1")
     formData.append('size', imageSize)
     formData.append('response_format', 'b64_json')
-
     fetch('https://api.openai.com/v1/images/variations', {
         method: 'POST',
         headers: {
@@ -135,13 +127,11 @@ export async function generateVariation() {
 }
 
 export function generateCompletion(prompt: string) {
-    // copy selectedNodes into intialNodes
     const initialNodes: any[] = []
     const initialNode = getLastSelectedNode()
     selectedNodes.forEach(node => {
         initialNodes.push(node)
     })
-
     startLoading()
     const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x()+ initialNode.width() + nodeOffset, initialNode.y() )
     fetch('https://api.openai.com/v1/completions', {
@@ -168,7 +158,6 @@ export function generateCompletion(prompt: string) {
             let message = data.choices[0].text.trim()
             newNode.text(message)
             newNode.fire('transform')
-
             // connect all initialNodes to the newNode
             initialNodes.forEach(initialNode => {
                 connectNodes(initialNode, newNode)
@@ -182,7 +171,6 @@ export function generateCompletion(prompt: string) {
             newNode.remove()
         })
 }
-
 
 export function createChatCompletion(context: any, menuNode: JQuery, requestId: number) {
     fetch('https://api.openai.com/v1/chat/completions', {
