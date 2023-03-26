@@ -2,19 +2,19 @@
   "menu": [
     {
       "label": "Possible factors",
-      "prompt": "What are five possible factors or reasons? Do not provide a numbered list. Separate each point with a dash."
+      "prompt": "What are five possible factors or reasons? Do not provide a numbered list. Separate each point with a dash (-). Put each item in a separate row."
     },
     {
       "label": "Solutions",
-      "prompt": "What can I do / what are five possible solutions to improve the situation? Do not provide a numbered list. Separate each point with a dash."
+      "prompt": "What can I do / what are five possible solutions to improve the situation? Do not provide a numbered list. Separate each point with a dash (-). Put each item in a separate row."
     },
     {
       "label": "Exercises",
-      "prompt": "Provide five explicit exercises I can do by myself. Do not provide a numbered list. Separate each point with a dash."
+      "prompt": "Provide five explicit exercises I can do by myself. Do not provide a numbered list. Separate each point with a dash (-). Put each item in a separate row."
     },
     {
       "label": "Daily routine",
-      "prompt": "Provide three facts that help me improving my daily routine in regard to the context. Do not provide a numbered list. Separate each point with a dash."
+      "prompt": "Provide three facts that help me improving my daily routine in regard to the context. Do not provide a numbered list. Separate each point with a dash (-). Put each item in a separate row."
     },
     {
       "label": "Professional help",
