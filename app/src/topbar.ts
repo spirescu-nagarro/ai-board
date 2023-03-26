@@ -42,7 +42,19 @@ $('.template').on('click', function () {
 
     if (template == '1') {
         loadMenu('mental-wellbeing')
-        createTextNode('I am a single parent who has to work, has fixed working hours and little support from my family. I don\'t sleep much, I feel exhausted and I\'m afraid of not being able to cope with the tasks. I am also afraid of losing my job. What can i do?')
+        createTextNode('I am feeling anxious')
+        createTextNode('I am feeling depressed')
+        createTextNode('I am feeling lonely')
+        createTextNode('I am feeling overwhelmed')
+        createTextNode('I am feeling angry')
+        createTextNode('I am feeling sad')
+        createTextNode('I am feeling helpless')
+        createTextNode('I am feeling hopeless')
+
+        createTextNode('I have sleep problems')
+        createTextNode('I am having trouble concentrating')
+        createTextNode('I am having trouble making decisions')
+        createTextNode('I am having trouble with my appetite')
     }
 
     if (template == '2') {

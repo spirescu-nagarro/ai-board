@@ -1,28 +1,24 @@
 {
   "menu": [
     {
-      "label": "Evaluate/Explain it",
-      "prompt": "Can you explain the facts in more detail?"
+      "label": "Possible factors",
+      "prompt": "What are five possible factors or reasons?"
     },
     {
-      "label": "Provide an action list",
-      "prompt": "What is a list of 5 actions I can take?"
+      "label": "Solutions",
+      "prompt": "What can I do / what are five possible solutions to improve the situation?"
     },
     {
-      "label": "Add to daily routine",
-      "prompt": "How can i add the facts into my daily routine?"
+      "label": "Exercises",
+      "prompt": "Provide five explicit exercises I can do by myself."
     },
     {
-      "label": "Give an example",
-      "prompt": "Can you provide an example of the fact?"
+      "label": "Daily routine",
+      "prompt": "Provide three facts that help me improving my daily routine in regard to the context."
     },
     {
-      "label": "Make it shorter",
-      "prompt": "Can you make it shorter?"
-    },
-    {
-      "label": "Suggest alternative",
-      "prompt": "Can you suggest an alternative?"
+      "label": "Professional help",
+      "prompt": "Where can I get professional help?"
     }
   ]
 }
