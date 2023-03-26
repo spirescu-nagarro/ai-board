@@ -2,19 +2,19 @@
   "menu": [
     {
       "label": "Possible factors",
-      "prompt": "What are five possible factors or reasons? Provide an unordered list."
+      "prompt": "What are five possible factors or reasons? Do not provide a numbered list. Separate each point with a dash."
     },
     {
       "label": "Solutions",
-      "prompt": "What can I do / what are five possible solutions to improve the situation? Provide an unordered list."
+      "prompt": "What can I do / what are five possible solutions to improve the situation? Do not provide a numbered list. Separate each point with a dash."
     },
     {
       "label": "Exercises",
-      "prompt": "Provide five explicit exercises I can do by myself. Provide an unordered list."
+      "prompt": "Provide five explicit exercises I can do by myself. Do not provide a numbered list. Separate each point with a dash."
     },
     {
       "label": "Daily routine",
-      "prompt": "Provide three facts that help me improving my daily routine in regard to the context. Provide an unordered list."
+      "prompt": "Provide three facts that help me improving my daily routine in regard to the context. Do not provide a numbered list. Separate each point with a dash."
     },
     {
       "label": "Professional help",
