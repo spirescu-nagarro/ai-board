@@ -2,7 +2,7 @@
   "menu": [
     {
       "label": "Suggest meals",
-      "prompt": "Provide a list of the names of five meals that are healthy and tasty."
+      "prompt": "Provide a list of the names of five meals that are healthy and tasty. Use an unordered list."
     },
     {
       "label": "Recipe",

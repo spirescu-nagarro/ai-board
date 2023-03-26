@@ -2,7 +2,7 @@ import Konva from "konva";
 import * as $ from "jquery";
 import {isConnectionMode} from "./topbar";
 import {openContextMenu} from "./menu";
-import {nodeOffset} from "./index";
+import {nodeOffsetX, nodeOffsetY} from "./index";
 
 export let stage: Konva.Stage
 export let layer: Konva.Layer
@@ -43,12 +43,12 @@ export function getLastSelectedNode() {
     return selectedNodes[selectedNodes.length - 1]
 }
 
-export function createTextNode(text: string, x = nodeOffset, y = positionForNextNode.y + nodeOffset): any {
+export function createTextNode(text: string, x = nodeOffsetX, y = positionForNextNode.y + nodeOffsetY, width: number = 400): any {
     const textNode = new Konva.Text({
         text,
         x,
         y,
-        width: 400,
+        width,
         fontSize: 16,
         fontFamily: "'Equip', sans-serif",
         draggable: true,

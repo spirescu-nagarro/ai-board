@@ -1,6 +1,7 @@
 import * as $ from "jquery";
-import {createTextNode} from "./board";
+import {connectNodes, createTextNode} from "./board";
 import {loadMenu} from "./menu";
+import {setNodeOffsetX, setNodeOffsetY} from "./index";
 
 export let apiKey = ''
 
@@ -42,19 +43,33 @@ $('.template').on('click', function () {
 
     if (template == '1') {
         loadMenu('mental-wellbeing')
-        createTextNode('I am feeling anxious')
-        createTextNode('I am feeling depressed')
-        createTextNode('I am feeling lonely')
-        createTextNode('I am feeling overwhelmed')
-        createTextNode('I am feeling angry')
-        createTextNode('I am feeling sad')
-        createTextNode('I am feeling helpless')
-        createTextNode('I am feeling hopeless')
+        const feel = createTextNode('I am feeling', undefined, undefined, 120)
+        const a = createTextNode('anxious', undefined, undefined, 150)
+        const b = createTextNode('depressed', undefined, undefined, 150)
+        const c = createTextNode('lonely', undefined, undefined, 150)
+        const d = createTextNode('overwhelmed', undefined, undefined, 150)
+        const e = createTextNode('angry', undefined, undefined, 150)
+        const f = createTextNode('sad', undefined, undefined, 150)
+        const g = createTextNode('helpless', undefined, undefined, 150)
+        const h = createTextNode('hopeless', undefined, undefined, 150)
+        connectNodes(feel, a)
+        connectNodes(feel, b)
+        connectNodes(feel, c)
+        connectNodes(feel, d)
+        connectNodes(feel, e)
+        connectNodes(feel, f)
+        connectNodes(feel, g)
+        connectNodes(feel, h)
 
-        createTextNode('I have sleep problems')
-        createTextNode('I am having trouble concentrating')
-        createTextNode('I am having trouble making decisions')
-        createTextNode('I am having trouble with my appetite')
+        const having = createTextNode('I am having problems', undefined, undefined, 200)
+        const i = createTextNode('sleeping', undefined, undefined, 150)
+        const j = createTextNode('concentrating', undefined, undefined, 150)
+        const k = createTextNode('making decisions', undefined, undefined, 150)
+        const l = createTextNode('with my appetite', undefined, undefined, 150)
+        connectNodes(having, i)
+        connectNodes(having, j)
+        connectNodes(having, k)
+        connectNodes(having, l)
     }
 
     if (template == '2') {

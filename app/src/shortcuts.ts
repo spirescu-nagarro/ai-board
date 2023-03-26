@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import {setConnectionMode} from "./topbar";
 import {createTextNode, selectedNodes} from "./board";
-import {nodeOffset} from "./index";
+import {nodeOffsetY} from "./index";
 
 export function initShortcuts() {
     $(document).on('keydown', (e) => {
@@ -26,7 +26,7 @@ export function initShortcuts() {
             e.preventDefault()
             selectedNodes.forEach(node => {
                 const text = node.text()
-                const x = node.getX() + node.transformer.width() + nodeOffset
+                const x = node.getX() + node.transformer.width() + nodeOffsetY
                 const y = node.getY()
                 createTextNode(text, x, y)
             })

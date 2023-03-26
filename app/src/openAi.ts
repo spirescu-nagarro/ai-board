@@ -9,7 +9,7 @@ import {
     makeNodeResizable, selectedNodes,
 } from "./board";
 import {notify} from "./notifications";
-import {imageSize, maxTokens, nodeOffset} from "./index";
+import {imageSize, maxTokens, nodeOffsetY} from "./index";
 import {dynamicMenuRequestId} from "./menu";
 import {base64toFile} from "./util";
 
@@ -23,7 +23,7 @@ export function generateImage(prompt: string, instruction: string) {
 
     const initialNode = getLastSelectedNode()
     startLoading()
-    const loadingImageNode = createTextNode(`Loading the prompt: ${instruction} ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+    const loadingImageNode = createTextNode(`Loading the prompt: ${instruction} ${prompt}...`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffsetY)
 
     fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
@@ -80,7 +80,7 @@ export function imageToText() {
             for (let a of data.labelAnnotations) {
                 keywords.push(a.description)
             }
-            const newNode = createTextNode('The image contains the following things: ' + keywords.join(', '), initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+            const newNode = createTextNode('The image contains the following things: ' + keywords.join(', '), initialNode.x(), initialNode.y() + initialNode.height() + nodeOffsetY)
             connectNodes(initialNode, newNode)
             stopLoading()
         })
@@ -92,7 +92,7 @@ export function imageToText() {
 export function generateVariation() {
     const initialNode = getLastSelectedNode()
     startLoading()
-    const loadingImageNode = createTextNode(`Creating variation`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffset)
+    const loadingImageNode = createTextNode(`Creating variation`, initialNode.x(), initialNode.y() + initialNode.height() + nodeOffsetY)
     const b64EncodedString = initialNode.attrs.image.src
     const file = base64toFile(b64EncodedString, 'image.png')
     const formData = new FormData()
@@ -133,7 +133,7 @@ export function generateCompletion(prompt: string) {
         initialNodes.push(node)
     })
     startLoading()
-    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x()+ initialNode.width() + nodeOffset, initialNode.y() )
+    const newNode = createTextNode(`Loading the prompt: ${prompt}...`, initialNode.x()+ initialNode.width() + nodeOffsetY, initialNode.y() )
     fetch('https://api.openai.com/v1/completions', {
         method: 'POST',
         headers: {
@@ -232,7 +232,7 @@ function createImageNode(base64String: string, prompt: string, initialNodes: any
         const imageNode = new Konva.Image({
             image: img,
             x: initialNode.x() + initialNode.width()/2 - 100,
-            y: initialNode.y() + initialNode.height() + nodeOffset,
+            y: initialNode.y() + initialNode.height() + nodeOffsetY,
             width: 200,
             height: 200,
             draggable: true,
