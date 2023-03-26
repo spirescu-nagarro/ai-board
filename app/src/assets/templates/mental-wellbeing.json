@@ -19,6 +19,10 @@
     {
       "label": "Professional help",
       "prompt": "Where can I get professional help?"
+    },
+    {
+      "label": "Explain",
+      "prompt": "Please explain the context in more detail."
     }
   ]
 }
